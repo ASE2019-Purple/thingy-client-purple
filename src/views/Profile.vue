@@ -1,7 +1,5 @@
 <template>
-  
   <v-container fluid>
-   
     <v-row justify="space-around">
       <v-sheet
         :width="width"
@@ -12,86 +10,116 @@
       >
         <v-list-item three-line>
           <v-list-item-content>
-            <div class="overline mb-4">Logged in as</div>
-            <v-list-item-title class="headline mb-1">{{ $auth.user.name }}</v-list-item-title>
+            <div class="overline mb-4">
+              Logged in as
+            </div>
+            <v-list-item-title class="headline mb-1">
+              {{
+                $auth.user.name
+              }}
+            </v-list-item-title>
             <v-list-item-subtitle>{{ $auth.user.email }}</v-list-item-subtitle>
           </v-list-item-content>
-          
-          <v-list-item-avatar tile
-                              size="80">
+
+          <v-list-item-avatar
+            tile
+            size="80"
+          >
             <img
               :src="$auth.user.picture"
               :alt="$auth.user.name"
             >
           </v-list-item-avatar>
-
-          
-          
         </v-list-item>
 
-     <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+        <!-- Just some example form -->
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="Name"
+            required
+          />
 
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          />
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
+          <v-select
+            v-model="select"
+            :items="items"
+            :rules="[v => !!v || 'Item is required']"
+            label="Item"
+            required
+          />
 
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      @click="validate"
-    >
-      Validate
-    </v-btn>
+          <v-checkbox
+            v-model="checkbox"
+            :rules="[v => !!v || 'You must agree to continue!']"
+            label="Do you agree?"
+            required
+          />
 
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-    >
-      Reset Form
-    </v-btn>
+          <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="validate"
+          >
+            Validate
+          </v-btn>
 
-    <v-btn
-      color="warning"
-      @click="resetValidation"
-    >
-      Reset Validation
-    </v-btn>
-     </v-form>
-     
+          <v-btn
+            color="error"
+            class="mr-4"
+            @click="reset"
+          >
+            Reset Form
+          </v-btn>
+
+          <v-btn
+            color="warning"
+            @click="resetValidation"
+          >
+            Reset Validation
+          </v-btn>
+        </v-form>
       </v-sheet>
     </v-row>
-    
+
+
+    <v-card>{{ info }}</v-card>
   </v-container>
-  
 </template>
+
+
+
+<script>
+import axios from "axios"
+
+export default {
+  name: "Profile",
+  methods: {
+  },
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    /* TODO get host of the thingy-api dynamically  */
+    axios
+      .get('http://172.26.172.19:8080/')
+      .then(response => (this.info = response))
+  }
+};
+</script>

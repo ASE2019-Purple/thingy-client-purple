@@ -1,133 +1,56 @@
 <template>
   <v-app id="inspire">
-
     <v-navigation-drawer
       v-model="drawer"
+      v-if="$auth.isAuthenticated"
       app
     >
-
-      <nav-bar/>
-
-      
+      <nav-bar />
     </v-navigation-drawer>
 
-      <v-app-bar
-        app
-        color="indigo"
-        dark
-      >
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar
+      app
+      dark
+    >
+      <v-app-bar-nav-icon
+        v-if="$auth.isAuthenticated"
+        @click.stop="drawer = !drawer"
+      />
 
-        <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Application</v-toolbar-title>
 
-        <div class="flex-grow-1"></div>
+      <div class="flex-grow-1" />
 
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+      <login-component />
+    </v-app-bar>
 
-       
-        <template v-if="!$auth.loading">
-            
-          <v-btn outlined v-if="!$auth.isAuthenticated" @click="login">
-            <v-icon>mdi-login</v-icon>
-              Login
-            
-          </v-btn>
-
-
-          <template v-if="$auth.isAuthenticated">
-            
-            <v-avatar size=36 class="pa-8">
-              <img
-                :src="$auth.user.picture"
-                :alt="$auth.user.name"
-              >
-            </v-avatar>
-        
-      
-           <v-menu
-          left
-          bottom
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on">
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item @click="logout">
-               <v-list-item-icon>
-        <v-icon>mdi-logout</v-icon>
-      </v-list-item-icon>
-      
-      <v-list-item-content>
-        <v-list-item-title>Logout</v-list-item-title>
-      </v-list-item-content>
-      
-               </v-list-item>
-               
-            <v-list-item
-              v-for="n in 5"
-              :key="n"
-              @click="() => {}"
-            >
-              <v-list-item-title>Option {{ n }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-           </v-menu>
-           
-        </template>
-
-          </template>
-
-
-      </v-app-bar>
-
-
-
-      <v-content>
-        <router-view/>
-
-      </v-content>
-      <v-footer
-        color="indigo"
-        app
-      >
-        <span class="white--text">&copy; 2019</span>
-      </v-footer>
+    <v-content>
+      <router-view />
+    </v-content>
+    <v-footer app>
+      <span class="white--text">&copy; 2019</span>
+    </v-footer>
   </v-app>
 </template>
 
-
-
 <script>
-import NavBar from '@/components/NavBar.vue'
+import NavBar from "@/components/NavBar.vue";
+import LoginComponent from "@/components/LoginComponent.vue";
 
 export default {
   components: {
-    NavBar
-  },
-  props: {
-    source: String,
+    NavBar, LoginComponent
   },
   data: () => ({
     drawer: null,
-    right: null,
+    right: null
   }),
-  methods: {
-    // Log the user in
-    login() {
-      this.$auth.loginWithRedirect();
-    },
-    // Log the user out
-    logout() {
-      this.$auth.logout({
-        returnTo: window.location.origin
-      });
-    }
+  created () {
+    this.$vuetify.theme.dark = true
   }
 };
 </script>
