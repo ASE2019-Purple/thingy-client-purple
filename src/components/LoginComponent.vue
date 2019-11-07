@@ -1,8 +1,7 @@
 <template>
-  <v-card>
+  <div>
     <template v-if="!$auth.loading">
       <v-btn
-        outlined
         v-if="!$auth.isAuthenticated"
         @click="login"
       >
@@ -56,7 +55,7 @@
         </v-menu>
       </template>
     </template>
-  </v-card>
+  </div>
 </template>
 
 <script>

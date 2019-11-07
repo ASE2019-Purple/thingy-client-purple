@@ -17,7 +17,7 @@
         @click.stop="drawer = !drawer"
       />
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>ASE2019 Purple</v-toolbar-title>
 
       <div class="flex-grow-1" />
 

@@ -1,13 +1,7 @@
 <template>
   <v-container fluid>
     <v-row justify="space-around">
-      <v-sheet
-        :width="width"
-        :height="height"
-        :elevation="elevation"
-        :color="color"
-        :tile="tile"
-      >
+      <v-sheet>
         <v-list-item three-line>
           <v-list-item-content>
             <div class="overline mb-4">
@@ -33,71 +27,38 @@
         </v-list-item>
 
 
-        <!-- Just some example form -->
-        <v-form
-          ref="form"
-          v-model="valid"
-          lazy-validation
+        
+        <v-btn
+          color="error"
+          @click="callPublic"
+          class="mx-2"
         >
-          <v-text-field
-            v-model="name"
-            :counter="10"
-            :rules="nameRules"
-            label="Name"
-            required
-          />
+          Call Public
+        </v-btn>
 
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          />
+        <v-btn
+          class="mr-2"
+          color="warning"
+          @click="callProtected"
+        >
+          Call Protected
+        </v-btn>
 
-          <v-select
-            v-model="select"
-            :items="items"
-            :rules="[v => !!v || 'Item is required']"
-            label="Item"
-            required
-          />
-
-          <v-checkbox
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Do you agree?"
-            required
-          />
-
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="validate"
-          >
-            Validate
-          </v-btn>
-
-          <v-btn
-            color="error"
-            class="mr-4"
-            @click="reset"
-          >
-            Reset Form
-          </v-btn>
-
-          <v-btn
-            color="warning"
-            @click="resetValidation"
-          >
-            Reset Validation
-          </v-btn>
-        </v-form>
+        <v-btn
+          color="success"
+          @click="callProfile"
+        >
+          Get Profile
+        </v-btn>
+        
+        <v-list-item>
+          {{ url }}
+        </v-list-item>
+        <v-list-item>
+          {{ info }}
+        </v-list-item>
       </v-sheet>
     </v-row>
-
-
-    <v-card>{{ info }}</v-card>
   </v-container>
 </template>
 
@@ -109,17 +70,67 @@ import axios from "axios"
 export default {
   name: "Profile",
   methods: {
+    async callProfile() {
+      const token = await this.$auth.getTokenSilently();
+      this.url = "http://localhost:8000/profile";
+      this.info = "";
+      axios.get(this.url, {
+        headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }
+      }).then(response => {
+        this.info = response.data;
+      }).catch(error => {
+        console.log(error);
+        this.info = error}
+      );
+      
+    },
+    async callProtected() {
+      const token = await this.$auth.getTokenSilently();
+      
+      this.url = "http://localhost:8000/protected"
+      this.info = "";
+      axios.get(this.url, {
+        headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }
+      }).then(response => {
+        this.info = response.data;
+      }).catch(error => {
+        console.log(error);
+        this.info = error}
+      );
+
+    },
+    async callPublic() {
+      // Get the access token from the auth wrapper
+      const token = await this.$auth.getTokenSilently();
+      this.url = "http://localhost:8000/public";
+      this.info = "";
+      // Use Axios to make a call to the API
+      const { data } = await axios.get(this.url, {
+        headers: {
+          Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
+        }
+      });
+
+      this.info = data;
+      
+    }
   },
   data () {
     return {
-      info: null
+      info: null,
+      url: "",
     }
   },
   mounted () {
     /* TODO get host of the thingy-api dynamically  */
     axios
-      .get('http://172.26.172.19:8080/')
-      .then(response => (this.info = response))
+      .get('http://localhost:8000/')
+      .then(response => (this.info = response.data))
+    
   }
 };
 </script>
