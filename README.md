@@ -1,5 +1,19 @@
 # thingy-client-purple
 
+## Github Pages
+
+A demo is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io"). 
+
+### Publish 
+
+To publish the page a Github Account with permissions for 
+[github.com/ASE2019-Purple/ASE2019-Purple.github.io](https://github.com/ASE2019-Purple/ASE2019-Purple.github.io "github.com/ASE2019-Purple/ASE2019-Purple.github.io")
+is required. 
+
+``` shell
+./gh-deploy.sh
+```
+
 ## Docker
 
 ### Run
