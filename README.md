@@ -1,5 +1,7 @@
 # thingy-client-purple
 
+[![Build Status](https://travis-ci.org/ASE2019-Purple/thingy-client-purple.svg?branch=master)](https://travis-ci.org/ASE2019-Purple/thingy-client-purple)
+
 ## Github Pages
 
 A demo is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io"). 
