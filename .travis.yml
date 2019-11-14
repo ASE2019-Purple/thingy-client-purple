@@ -2,16 +2,14 @@ language: node_js
 node_js:
  - "node"
 
-cache: yarn
-#cache: npm
+cache: npm
 
-#script: npm run build
+script: npm run build
 
-#deploy:
-# provider: pages
-# skip_cleanup: true
-# github_token: $GITHUB_TOKEN
-# local_dir: dist
-# on:
-#   branch: master
-© 2019 GitHub, Inc.
+deploy:
+ provider: pages
+ skip_cleanup: true
+ github_token: $GITHUB_TOKEN
+ local_dir: dist
+ on:
+   branch: master
