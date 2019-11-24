@@ -61,5 +61,5 @@ yarn.lock
 # next.js build output
 .next
 
-# Jetbrain Webstorm configuration
+# Jetbrain Webstorm configuration exclude
 .idea/
