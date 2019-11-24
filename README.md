@@ -24,7 +24,7 @@ is required.
 docker run -d -p 8080:80 --name thingy-client-purple_app_1  thingy-client-purple
 ```
 
-### Build
+### Build 
 
 ``` shell
 docker build . -t thingy-client-purple
