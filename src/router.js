@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Profile from "./views/Profile.vue";
+import Chartsview from "./views/Chartview.vue";
 
 import { authGuard } from "./auth/authGuard";
 
@@ -30,6 +31,13 @@ export default new Router({
       name: "profile",
       component: Profile,
       beforeEnter: authGuard
+    },
+    {
+      path: "/charts",
+      name: "Charts",
+      component: Chartsview,
+      beforeEnter: authGuard
+
     }
   ]
 });

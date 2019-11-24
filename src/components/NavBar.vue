@@ -18,6 +18,12 @@
         <v-list-item-title>Profile</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
+
+    <v-list-item to="/charts">
+      <v-list-item-content>
+        <v-list-item-title>Chart</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </v-list>
 </template>
 

@@ -10,6 +10,10 @@ import { domain, clientId, audience } from "../auth_config.json";
 // Import the plugin here
 import { Auth0Plugin } from "./auth";
 
+import HighchartsVue from 'highcharts-vue'
+
+Vue.use(HighchartsVue);
+
 // Install the authentication plugin here
 Vue.use(Auth0Plugin, {
   domain,
