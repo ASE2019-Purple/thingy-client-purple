@@ -21,13 +21,18 @@ is required.
 ### Run
 
 ``` shell
-docker run -d -p 8080:80 thingy-client-purple
+docker run -d -p 8080:80 --name thingy-client-purple_app_1  thingy-client-purple
 ```
 
 ### Build
 
 ``` shell
 docker build . -t thingy-client-purple
+```
+### Build and run with docker-compose
+
+``` shell
+in the project folder dokcer-compose up -d
 ```
 
 ## Project setup
