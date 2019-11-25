@@ -1,8 +1,6 @@
 import Vue from "vue";
 import createAuth0Client from "@auth0/auth0-spa-js";
 
-let public_path = process.env.PUBLIC_PATH || "";
-
 /** Define a default action to perform after authentication */
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname );
@@ -15,7 +13,7 @@ export const getInstance = () => instance;
 /** Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance */
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirectUri = window.location.origin + public_path,
+  redirectUri = window.location.origin + window.location.pathname,
   ...options
 }) => {
   if (instance) return instance;
