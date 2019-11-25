@@ -72,6 +72,7 @@ export default {
   methods: {
     async callProfile() {
       const token = await this.$auth.getTokenSilently();
+      // TODO set the API path in configuration
       this.url = "http://localhost:8000/profile";
       this.info = "";
       axios.get(this.url, {
@@ -81,14 +82,13 @@ export default {
       }).then(response => {
         this.info = response.data;
       }).catch(error => {
-        console.log(error);
         this.info = error}
       );
       
     },
     async callProtected() {
       const token = await this.$auth.getTokenSilently();
-      
+      // TODO set the API path in configuration
       this.url = "http://localhost:8000/protected"
       this.info = "";
       axios.get(this.url, {
