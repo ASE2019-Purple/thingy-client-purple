@@ -4,9 +4,9 @@
 
 ## Github Pages
 
-A demo of the current release is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io") and the build of the current master branch is available at [ase2019-purple.github.io/thingy-client-purple](https://ase2019-purple.github.io "ase2019-purple.github.io/thingy-client-purple"). 
+A demo of the current release is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io") and the build of the current master branch is available at [ase2019-purple.github.io/thingy-client-purple](https://ase2019-purple.github.io/thingy-client-purple "ase2019-purple.github.io/thingy-client-purple"). 
 
-### Publish 
+### Publish the Release
 
 To publish the page a Github Account with permissions for 
 [github.com/ASE2019-Purple/ASE2019-Purple.github.io](https://github.com/ASE2019-Purple/ASE2019-Purple.github.io "github.com/ASE2019-Purple/ASE2019-Purple.github.io")
@@ -35,7 +35,7 @@ docker build . -t thingy-client-purple
 in the project folder dokcer-compose up -d
 ```
 
-## Project setup
+## Vue CLI Project setup
 ```
 yarn install
 ```
