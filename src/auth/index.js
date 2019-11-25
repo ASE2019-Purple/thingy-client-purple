@@ -1,7 +1,7 @@
 import Vue from "vue";
 import createAuth0Client from "@auth0/auth0-spa-js";
 
-let public_path = process.env.PUBLIC_PATH || window.location.pathname;
+let public_path = window.location.origin + "" + process.env.PUBLIC_PATH || window.location.pathname;
 
 /** Define a default action to perform after authentication */
 const DEFAULT_REDIRECT_CALLBACK = () =>
