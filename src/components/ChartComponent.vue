@@ -1,88 +1,47 @@
 <template>
-  <div class="chartElem">
-    <div class="row">
+  <v-container fluid>
+    <v-row justify="center">
       <highcharts
         class="chart"
         :options="chartOptions"
         :update-args="updateArgs"
       />
-      <div>
-        <h3>Flexibly change the value of each point:</h3>
-        <h4>Points:</h4>
-        <form class="row points">
-          <div
-            v-for="index in 8"
-            :key="index"
-          >
-            <p>{{ index }}</p>
-            <input
-              v-model.number="points[index-1]"
-              type="number"
-              class="numberInput"
-            >
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="row">
-      <div id="title">
-        <h3>Set chart title dynamically:</h3>
-        <input
-          type="text"
+    </v-row>
+    
+    <v-row>
+      <v-col
+        cols="12"
+        sm="4"
+      >
+        <v-text-field
+          label="Chart title"
           v-model="title"
-        >
-      </div>
-      <div id="chartType">
-        <h3>Select chart type:</h3>
-        <select v-model="chartType">
-          <option>Spline</option>
-          <option>AreaSpline</option>
-          <option>Line</option>
-          <option>Scatter</option>
-          <option>Column</option>
-          <option>Area</option>
-        </select>
-      </div>
-      <div id="animationDuration">
-        <h3>Select update animation duration:</h3>
-        <select
+        />
+      </v-col>
+      
+      <v-col
+        cols="12"
+        sm="4"
+      >
+        <v-select
+          v-model="chartType"
+          :items="chartTypes"
+          label="Chart Type"
+        />
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="4"
+      >
+        <v-select
           v-model="animationDuration"
-          type="number"
-        >
-          <option>0</option>
-          <option>500</option>
-          <option>1000</option>
-          <option>2000</option>
-        </select>
-      </div>
-      <div id="seriesColor">
-        <h3>Select color of the series:</h3>
-        <div class="row">
-          <input
-            id="colorPicker"
-            v-if="colorInputIsSupported"
-            type="color"
-            value="#6fcd98"
-            v-model="seriesColor"
-          >
-          <select
-            v-else
-            v-model="seriesColor"
-          >
-            <option>Red</option>
-            <option>Green</option>
-            <option>Blue</option>
-            <option>Pink</option>
-            <option>Orange</option>
-            <option>Brown</option>
-            <option>Black</option>
-            <option>Purple</option>
-          </select>
-        </div>
-        <p>Current color: {{ seriesColor }}</p>
-      </div>
-    </div>
-  </div>
+          :items="[0,500,1000,2000]"
+          label="Animation duration"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -90,6 +49,8 @@ export default {
   name: "ChartComponent",
   data () {
     return {
+      chartTypes: [ "Spline", "AreaSpline", "Line", "Scatter", "Column", "Area" ],
+      colors: ["Red", "Green", "Blue"],
       title: '',
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: 'Spline',
@@ -111,17 +72,9 @@ export default {
       }
     }
   },
-  created () {
-    let i = document.createElement('input')
-    i.setAttribute('type', 'color');
-    (i.type === 'color') ? this.colorInputIsSupported = true : this.colorInputIsSupported = false
-  },
   watch: {
     title (newValue) {
       this.chartOptions.title.text = newValue
-    },
-    points (newValue) {
-      this.chartOptions.series[0].data = newValue
     },
     chartType (newValue) {
       this.chartOptions.chart.type = newValue.toLowerCase()

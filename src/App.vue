@@ -19,7 +19,7 @@
 
       <v-toolbar-title>ASE2019 Purple</v-toolbar-title>
 
-      <div class="flex-grow-1"/>
+      <div class="flex-grow-1" />
 
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>

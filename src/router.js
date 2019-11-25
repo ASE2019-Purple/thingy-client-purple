@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Profile from "./views/Profile.vue";
-import Chartsview from "./views/Chartview.vue";
+import Monitor from "./views/Monitor.vue";
 
 import { authGuard } from "./auth/authGuard";
 
@@ -26,18 +26,18 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
+     {
+      path: "/monitor",
+      name: "Monitor",
+      component: Monitor,
+      beforeEnter: authGuard
+
+     },
     {
       path: "/profile",
       name: "profile",
       component: Profile,
       beforeEnter: authGuard
-    },
-    {
-      path: "/charts",
-      name: "Charts",
-      component: Chartsview,
-      beforeEnter: authGuard
-
     }
   ]
 });
