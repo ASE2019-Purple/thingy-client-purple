@@ -4,7 +4,7 @@
 
 ## Github Pages
 
-A demo is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io"). 
+A demo of the current release is published at [ase2019-purple.github.io](https://ase2019-purple.github.io "ase2019-purple.github.io") and the build of the current master branch is available at [ase2019-purple.github.io/thingy-client-purple](https://ase2019-purple.github.io "ase2019-purple.github.io/thingy-client-purple"). 
 
 ### Publish 
 
