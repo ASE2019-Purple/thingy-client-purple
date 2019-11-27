@@ -126,7 +126,7 @@ export default {
     }
   },
   mounted () {
-    /* TODO get host of the thingy-api dynamically  */
+    /* TODO get host of the thingy-api from env  */
     axios
       .get('http://localhost:8000/')
       .then(response => (this.info = response.data))
