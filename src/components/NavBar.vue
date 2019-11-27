@@ -4,16 +4,6 @@
       <v-list-item-icon>
         <v-icon>mdi-view-dashboard</v-icon>
       </v-list-item-icon>
-
-      <v-list-item-content>
-        <v-list-item-title>Home</v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-
-    <v-list-item to="/monitor">
-      <v-list-item-icon>
-        <v-icon>mdi-monitor-dashboard</v-icon>
-      </v-list-item-icon>
       <v-list-item-content>
         <v-list-item-title>Monitor</v-list-item-title>
       </v-list-item-content>

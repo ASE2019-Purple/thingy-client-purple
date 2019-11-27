@@ -7,40 +7,6 @@
         :update-args="updateArgs"
       />
     </v-row>
-    
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          label="Chart title"
-          v-model="title"
-        />
-      </v-col>
-      
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-select
-          v-model="chartType"
-          :items="chartTypes"
-          label="Chart Type"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-select
-          v-model="animationDuration"
-          :items="[0,500,1000,2000]"
-          label="Animation duration"
-        />
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
@@ -50,11 +16,9 @@ export default {
   data () {
     return {
       chartTypes: [ "Spline", "AreaSpline", "Line", "Scatter", "Column", "Area" ],
-      colors: ["Red", "Green", "Blue"],
-      title: '',
       points: [10, 0, 8, 2, 6, 4, 5, 5],
       chartType: 'Spline',
-      seriesColor: '#6fcd98',
+      seriesColor: this.color,
       colorInputIsSupported: null,
       animationDuration: 1000,
       updateArgs: [true, true, {duration: 1000}],
@@ -63,11 +27,11 @@ export default {
           type: 'spline'
         },
         title: {
-          text: 'Sin chart'
+          text: this.title
         },
         series: [{
           data: [10, 0, 8, 2, 6, 4, 5, 5],
-          color: '#6fcd98'
+          color: this.color
         }]
       }
     }
@@ -85,22 +49,41 @@ export default {
     animationDuration (newValue) {
       this.updateArgs[2].duration = Number(newValue)
     }
-  }
+  },
+  props: {
+    title: {
+      type: String,
+      default: ""
+    },
+    color: {
+      type: String,
+      default: "#6fcd98"
+    },
+    apiEndpoint: {
+      type: String,
+      default: ""
+    }
+  },
+  created () {
+    this.fetchReportData()
+  },
+    methods: {
+    fetchReportData () {
+      /* this.loadingReportData = true
+       * const url = this.$store.state.report.testApiUrl + this.widgetData.endPoint
+       * fetch(url).then(
+       *   response => { return response.json() },
+       *   error => { console.log(error) }
+       * ).then(
+       *   data => {
+       *     this.reportData = data
+       *     this.loadingReportData = false
+       *   }
+       * ) */
+    },
+}
 }
 </script>
 
 <style scoped>
-input[type="color"]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-#colorPicker {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  width: 30px;
-  height: 30px;
-}
-.numberInput {
-  width: 30px;
-}
 </style>

@@ -13,7 +13,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
+      path: "/default",
       name: "home",
       component: Home
     },
@@ -27,7 +27,7 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
      {
-      path: "/monitor",
+      path: "/",
       name: "Monitor",
       component: Monitor,
       beforeEnter: authGuard

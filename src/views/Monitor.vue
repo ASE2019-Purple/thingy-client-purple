@@ -1,43 +1,70 @@
 <template>
   <div id="app">
-    <v-row
-      class="mb-6"
-      justify="center"
-    >
-      <v-col
-        md="auto"
-        sm="8"
+    <v-container fluid>
+      <v-row
+        justify="center"
       >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
+        <v-col
+          cols="12"
+          sm="6"
         >
-          <v-btn-toggle
-            borderless
-          >
-            <v-btn
-              value="chart"
-              @click="select('chart')"
-              :class="{btnActive: selected === 'chart'}"
-            >
-              <span class="hidden-sm-and-down">Chart</span>
-            </v-btn>
-          </v-btn-toggle>
-        </v-card>
-      </v-col>
-    </v-row>
+          <keep-alive>
+            <chart
+              title="Temperature"
+              color="#EBCB8B"
+              api-endpoint="temperature"
+            />
+          </keep-alive>
+        </v-col>
 
-    <v-row
-      class="mb-6"
-      justify="center"
-    >
-      <v-col md="auto">
-        <keep-alive>
-          <component :is="currentView" />
-        </keep-alive>
-      </v-col>
-    </v-row>
+
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <keep-alive>
+            <chart
+              title="Humidity"
+              color="#8FBCBB"
+              api-endpoint="humidity"
+            />
+          </keep-alive>
+        </v-col>
+      </v-row>
+
+
+      <v-row
+        class="mb-6"
+        justify="center"
+      >
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <keep-alive>
+            <chart
+              title="Pressure"
+              color="#4C566A"
+              api-endpoint="pressure"
+            />
+          </keep-alive>
+        </v-col>
+
+
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <keep-alive>
+            <ChartComponent
+              title="Air Quality"
+              color="#5E81AC"
+              api-endpoint="air-quality"
+            />
+          </keep-alive>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -53,7 +80,8 @@ export default {
     }
   },
   components: {
-    chart: ChartComponent
+    chart: ChartComponent,
+    ChartComponent: ChartComponent
   },
   methods: {
     activate (elem) {
