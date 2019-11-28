@@ -29,6 +29,21 @@
 <script>
 import axios from "axios"
 
+let getJSON = function(url, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+  xhr.onload = function() {
+    var status = xhr.status;
+    if (status === 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status, xhr.response);
+    }
+  };
+  xhr.send();
+};
+
 export default {
   name: "ChartComponent",
   data () {
@@ -123,36 +138,17 @@ export default {
   },
     methods: {
       async fetchData () {
-        let sampleDataPoints = [[
-          {
-            "time": "2019-11-27T18:30:18.6102451Z",
-            "characteristic": "Thingy-Air-Quality-Characteristic",
-            "service": "Thingy-Environment-Service",
-            "thingy": "e6:97:3d:de:ca:a3",
-            "value": 612.32
-          },
-          {
-            "time": "2019-11-27T20:08:14.6329913Z",
-            "characteristic": "Thingy-Air-Quality-Characteristic",
-            "service": "Thingy-Environment-Service",
-            "thingy": "e6:97:3d:de:ca:a3",
-            "value": 400
-          },
-          {
-            "time": "2019-11-27T21:08:26.731525Z",
-            "characteristic": "Thingy-Air-Quality-Characteristic",
-            "service": "Thingy-Environment-Service",
-            "thingy": "e6:97:3d:de:ca:a3",
-            "value": 400
-          },
-           {
-            "time": "2019-11-27T22:08:26.731525Z",
-            "characteristic": "Thingy-Air-Quality-Characteristic",
-            "service": "Thingy-Environment-Service",
-            "thingy": "e6:97:3d:de:ca:a3",
-            "value": 400
-          }
-        ]]
+
+        let sampleDataPoints;
+        getJSON('http://localhost:8080/air-quality',
+                function(err, data) {
+                  sampleDataPoints = data;
+                  if (err !== null) {
+                    alert('Something went wrong: ' + err);
+                  } else {
+                    alert('Your query count: ' + data.query.count);
+                  }
+                });
 
         // TODO Test
         const token = await this.$auth.getTokenSilently();
