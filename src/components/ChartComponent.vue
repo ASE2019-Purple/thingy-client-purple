@@ -153,7 +153,7 @@ export default {
         // TODO Test
         const token = await this.$auth.getTokenSilently();
 
-        this.url = "http://localhost:8000/" + this.apiEndpoint
+        this.url = "http://localhost:8081/" + this.apiEndpoint
         this.info = "";
         
         axios.get(this.url, {
@@ -164,6 +164,8 @@ export default {
 
           // TODO is this really a double wrapped list?
           let data = []
+          console.log(response)
+          console.log(response.data)
           this.chartOptions.series[0].data = []
           response.data[0].forEach(point => {
             data.push([Date(point.time), point.value])
@@ -178,7 +180,7 @@ export default {
               //console.log(Date(point.time))
             })
             console.log("Using sample data");
-        this.chartOptions.series[0].data = data
+          this.chartOptions.series[0].data = data
 
           });
 
