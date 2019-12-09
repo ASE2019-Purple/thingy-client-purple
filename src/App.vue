@@ -21,13 +21,12 @@
 
       <div class="flex-grow-1" />
 
-      <DateRangeComponent v-model="dateRange"/>
+      <DateRangeComponent v-model="dateRange" />
 
       <login-component />
     </v-app-bar>
 
     <v-content>
-    
       <router-view />
     </v-content>
     <v-footer app>

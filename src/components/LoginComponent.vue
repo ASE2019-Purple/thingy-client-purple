@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="!$auth.loading">
-      <v-btn
+      <v-btn outlined
         v-if="!$auth.isAuthenticated"
         @click="login"
       >
