@@ -70,3 +70,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Axios (HTTP client)
 
   - https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html
+
+### date-fsn
+
+  - <https://date-fns.org/v2.8.1/docs/format>

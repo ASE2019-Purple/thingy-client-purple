@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import format from 'date-fns/format';
 
 Vue.use(Vuex);
 
@@ -10,8 +11,13 @@ export default new Vuex.Store({
   },
   getters: {
     dateRangeText: state => {
+      
+      return "" + format(state.startDate, 'd. MMMM yyyy') + " ~ " + format(state.endDate, 'd. MMMM yyyy');
+    },
+    dateRangeISO: state => {
       // TODO maybe use moment 
-      return "" + state.startDate + " ~ " + state.endDate;
+      return [state.startDate.toISOString().substr(0, 10),
+             state.endDate.toISOString().substr(0, 10)];
     }
   },
   mutations: {

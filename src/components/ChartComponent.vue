@@ -29,20 +29,6 @@
 <script>
 import axios from "axios"
 
-let getJSON = function(url, callback) {
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.responseType = 'json';
-  xhr.onload = function() {
-    var status = xhr.status;
-    if (status === 200) {
-      callback(null, xhr.response);
-    } else {
-      callback(status, xhr.response);
-    }
-  };
-  xhr.send();
-};
 
 export default {
   name: "ChartComponent",
@@ -64,10 +50,10 @@ export default {
         title: {
           text: this.title
         },
-         xAxis: {
+        xAxis: {
           type: 'datetime',
-         
-         },
+          
+        },
         plotOptions: {
           area: {
             fillColor: {
@@ -136,56 +122,74 @@ export default {
     this.fetchData()
     console.log("created")
   },
-    methods: {
-      async fetchData () {
+  methods: {
+    async fetchData () {
+      
+      let sampleDataPoints = [[
+        {
+          "time": "2019-11-27T18:30:18.6102451Z",
+          "characteristic": "Thingy-Air-Quality-Characteristic",
+          "service": "Thingy-Environment-Service",
+          "thingy": "e6:97:3d:de:ca:a3",
+          "value": 612.32
+        },
+        {
+          "time": "2019-11-27T20:08:14.6329913Z",
+          "characteristic": "Thingy-Air-Quality-Characteristic",
+          "service": "Thingy-Environment-Service",
+          "thingy": "e6:97:3d:de:ca:a3",
+          "value": 400
+        },
+        {
+          "time": "2019-11-27T21:08:26.731525Z",
+          "characteristic": "Thingy-Air-Quality-Characteristic",
+          "service": "Thingy-Environment-Service",
+          "thingy": "e6:97:3d:de:ca:a3",
+          "value": 400
+        },
+        {
+          "time": "2019-11-27T22:08:26.731525Z",
+          "characteristic": "Thingy-Air-Quality-Characteristic",
+          "service": "Thingy-Environment-Service",
+          "thingy": "e6:97:3d:de:ca:a3",
+          "value": 400
+        }
+      ]]
+      
+      const token = await this.$auth.getTokenSilently();
 
-        let sampleDataPoints;
-        getJSON('http://localhost:8080/air-quality',
-                function(err, data) {
-                  sampleDataPoints = data;
-                  if (err !== null) {
-                    alert('Something went wrong: ' + err);
-                  } else {
-                    alert('Your query count: ' + data.query.count);
-                  }
-                });
+      this.url = "http://localhost:8081/" + this.apiEndpoint
+      this.info = "";
+      
+      axios.get(this.url, {
+        headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }
+      }).then(response => {
 
-        // TODO Test
-        const token = await this.$auth.getTokenSilently();
-
-        this.url = "http://localhost:8081/" + this.apiEndpoint
-        this.info = "";
+        // TODO is this really a double wrapped list?
+        let data = []
         
-        axios.get(this.url, {
-          headers: {
-            Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-          }
-        }).then(response => {
-
-          // TODO is this really a double wrapped list?
-          let data = []
-          console.log(response)
-          console.log(response.data)
-          this.chartOptions.series[0].data = []
-          response.data[0].forEach(point => {
-            data.push([Date(point.time), point.value])
-            })
-            //console.log(Date(point.time))
+        this.chartOptions.series[0].data = []
+        response.data[0].forEach(point => {
+          data.push([Date(point.time), point.value])
+        })
+        //console.log(Date(point.time))
         this.chartOptions.series[0].data = data
-            
-        }).catch(error => {
-            let data = []
-            sampleDataPoints[0].forEach(point => {
-              data.push([Date(point.time), point.value])
-              //console.log(Date(point.time))
-            })
-            console.log("Using sample data");
-          this.chartOptions.series[0].data = data
+        
+      }).catch(error => {
+        let data = []
+        sampleDataPoints[0].forEach(point => {
+          data.push([Date(point.time), point.value])
+        })
+        console.log("Failed to get data - using sample data");
+        console.log(error);
+        this.chartOptions.series[0].data = data
 
-          });
+      });
 
     },
-}
+  }
 }
 </script>
 

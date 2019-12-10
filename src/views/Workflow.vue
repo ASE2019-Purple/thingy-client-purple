@@ -35,16 +35,18 @@
         </v-list-item>
       </v-sheet>
     </v-row>
+     
     <v-row>
       <v-col>
         <vue-cal
           hide-view-selector
-          default-view="week"
+          default-view="month"
           style="height: 550px"
           :min-date="startDate"
           :max-date="endDate"
           :events="events"
-          selected-date="2019-12-10"
+          events-on-month-view="short"
+          :selected-date="startDate"
           :time="false"
           :disable-views="['years', 'year']"
         />
@@ -126,14 +128,14 @@ export default {
       start: '2019-12-10',
       end: '2019-12-10',
       title: 'Water the plants!',
-      content: '<v-icon>mdi-settings</v-icon>',
+      content: '<v-icon>mdi-water-pump</v-icon>',
       class: 'watering'
     },
 {
       start: '2019-12-13',
       end: '2019-12-13',
-      title: 'Water the goddamn plants!',
-      content: '<i class="v-icon material-icons">shopping_cart</i>',
+      title: 'Water the plants!',
+      content: '<v-icon>mdi-water-pump</v-icon>',
       class: 'watering'
     }
       ]
@@ -145,7 +147,6 @@ export default {
     axios
       .get('http://localhost:8000/')
       .then(response => (this.info = response.data))
-    
   },
   computed: mapState({
     startDate: state => state.startDate,
@@ -156,9 +157,13 @@ export default {
 
 
 <style>
-.vuecal__cell.disabled {text-decoration: line-through;}
-.vuecal__cell.disabled.before-min {color: #b6d6c7;}
-.vuecal__cell.disabled.after-max {color: #008b8b;}
+.vuecal__cell.disabled {}
+.vuecal__cell.disabled.before-min {color: #4C566A;}
+.vuecal__cell.disabled.after-max {color: #4C566A;}
 
-.vuecal__event.watering {background-color: rgba(253, 156, 66, 0.9);border: 1px solid rgb(233, 136, 46);color: #fff;}
+.vuecal__event.watering {
+  background-color: #5E81AC;
+  border: 1px solid #E5E9F0;
+  color: #E5E9F0;
+}
 </style>

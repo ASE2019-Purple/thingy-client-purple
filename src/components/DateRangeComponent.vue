@@ -48,7 +48,7 @@
           <v-btn
             text
             color="primary"
-            @click="$store.commit('setDates', dates )"
+            @click="$store.commit('setDates', dates ); $refs.menu.save(dates)"
           >
             OK
           </v-btn>
@@ -59,32 +59,32 @@
 </template>
 
 <script>
+
+
 export default {
   name: "DateRangeComponent",
-  props: {
-    value: {
-      type: Array,
-      default: function() {return ['2019-09-10', '2019-09-20']}
-    }
-  },
+  props: {},
   data: () => ({
-    dates: ['2019-09-10', '2019-09-20']
+    dates: ['2019-09-10', '2019-09-20'],
+    menu: false
   }),
   created () {
     // Init dates from the v-model binding
-    this.dates = this.value
+    this.dates = this.$store.getter.dateRangeISO
+    console.log(this.dates)
   },
   computed: {
     dateRangeText () {
       return this.$store.getters.dateRangeText
-    },
+    }
   },
   watch: {
     dates: function (dates) {
-      //console.log(new Date(dates[0]))
-      //this.$store.commit('setDates', dates )
-      // Emit event s.t. v-model can be used for a 2-way binding
-      this.$emit('input', this.dates)
+                console.log(dates)
+
+      this.$store.commit('setDates', dates )
+          console.log(dates)
+
     }
   }
 };

@@ -21,7 +21,7 @@
 
       <div class="flex-grow-1" />
 
-      <DateRangeComponent v-model="dateRange" />
+      <DateRangeComponent />
 
       <login-component />
     </v-app-bar>
@@ -49,15 +49,9 @@ export default {
   data: () => ({
     drawer: null,
     right: null,
-    dateRange: ['2019-09-10', '2019-09-20']
   }),
   created () {
     this.$vuetify.theme.dark = true
-
-    // Init dateRange 
-    var today = new Date();
-    this.dateRange = [today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(), today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()+1)];
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   }
 };
 </script>
