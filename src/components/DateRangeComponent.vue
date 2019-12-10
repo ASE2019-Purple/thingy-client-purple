@@ -70,7 +70,7 @@ export default {
   }),
   created () {
     // Init dates from the v-model binding
-    this.dates = this.$store.getter.dateRangeISO
+    //this.dates = this.$store.getter.dateRangeISO
     console.log(this.dates)
   },
   computed: {
@@ -79,13 +79,6 @@ export default {
     }
   },
   watch: {
-    dates: function (dates) {
-                console.log(dates)
-
-      this.$store.commit('setDates', dates )
-          console.log(dates)
-
-    }
   }
 };
 </script>
