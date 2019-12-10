@@ -167,15 +167,28 @@ export default {
         }
       }).then(response => {
 
-        // TODO is this really a double wrapped list?
         let data = []
+
+        // Add data to the graph in minute resolution
+        // Second resolution is too much and doesn't render...
         
         this.chartOptions.series[0].data = []
+        let datetime, time;
         response.data[0].forEach(point => {
-          data.push([Date(point.time), point.value])
+          // Remove seconds and miliseconds
+          time = point.time.slice(0,16)
+          if (datetime !== time){
+            console.log(datetime, time)
+            datetime = time
+            data.push([Date(datetime), point.value])
+          } 
+          
+
         })
-        //console.log(Date(point.time))
+        
         this.chartOptions.series[0].data = data
+        console.log(this.chartOptions.series[0])
+
         
       }).catch(error => {
         let data = []
