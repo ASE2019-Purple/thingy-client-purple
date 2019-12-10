@@ -48,7 +48,7 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.menu.save(dates)"
+            @click="$store.commit('setDates', dates )"
           >
             OK
           </v-btn>
@@ -76,13 +76,13 @@ export default {
   },
   computed: {
     dateRangeText () {
-      return this.dates ? this.dates.join(' ~ ') : ''
+      return this.$store.getters.dateRangeText
     },
   },
   watch: {
     dates: function (dates) {
-      console.log(new Date(dates[0]))
-      
+      //console.log(new Date(dates[0]))
+      //this.$store.commit('setDates', dates )
       // Emit event s.t. v-model can be used for a 2-way binding
       this.$emit('input', this.dates)
     }

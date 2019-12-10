@@ -6450,6 +6450,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+material-design-icons-iconfont@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/material-design-icons-iconfont/-/material-design-icons-iconfont-5.0.1.tgz#371875ed7fe9c8c520bc7123c3231feeab731c31"
+  integrity sha512-Xg6rIdGrfySTqiTZ6d+nQbcFepS6R4uKbJP0oAqyeZXJY/bX6mZDnOmmUJusqLXfhIwirs0c++a6JpqVa8RFvA==
+
 math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
@@ -10078,6 +10083,11 @@ vue-axios@^2.1.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.5.tgz#1af4bf1218ed71309c76afb38d0f683e312c24a7"
   integrity sha512-th5xVbInVoyIoe+qY+9GCflEVezxAvztD4xpFF39SRQYqpoKD2qkmX8yv08jJG9a2SgNOCjirjJGSwg/wTrbmA==
+
+vue-cal@^2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/vue-cal/-/vue-cal-2.15.0.tgz#8abee7f4134efea141245f3a9b38a2a371a299a6"
+  integrity sha512-ur2G3Q98K28OIwwZdP9/VfdCiAHW0Yjtqg169C6FpvOv+qLcQ+aiAx+fofuTyN9GVUmV4p+P9R/pDUSogMMXrw==
 
 vue-cli-plugin-vuetify@^1.0.1:
   version "1.1.2"
