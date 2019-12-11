@@ -73,7 +73,6 @@ export const useAuth0 = ({
         return this.auth0Client.getTokenSilently(o);
       },
       /** Gets the access token using a popup window */
-
       getTokenWithPopup(o) {
         return this.auth0Client.getTokenWithPopup(o);
       },

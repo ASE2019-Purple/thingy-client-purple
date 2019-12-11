@@ -10,7 +10,13 @@ import { domain, clientId, audience } from "../auth_config.json";
 // Import the plugin here
 import { Auth0Plugin } from "./auth";
 
-import HighchartsVue from 'highcharts-vue'
+import api from '@/api';
+
+// Allow global access to api vie this.$api
+Vue.prototype.$api = api;
+
+
+import HighchartsVue from 'highcharts-vue';
 
 Vue.use(HighchartsVue);
 
@@ -30,9 +36,13 @@ Vue.use(Auth0Plugin, {
 
 Vue.config.productionTip = false;
 
+
 new Vue({
   store,
   vuetify,
   router,
+  config: {
+    API_URL: process.env.VUE_APP_THINGY_API
+  },
   render: h => h(App)
 }).$mount("#app");

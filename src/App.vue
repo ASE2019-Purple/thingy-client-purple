@@ -16,14 +16,15 @@
         v-if="$auth.isAuthenticated"
         @click.stop="drawer = !drawer"
       />
-
-      <v-toolbar-title>ASE2019 Purple</v-toolbar-title>
+      
+      <!-- <v-toolbar-title>ASE2019 Purple</v-toolbar-title> -->
 
       <div class="flex-grow-1" />
 
+      <ThingyComponent />
       <DateRangeComponent />
 
-      <login-component />
+      <LoginComponent />
     </v-app-bar>
 
     <v-content>
@@ -39,12 +40,14 @@
 import NavBar from "@/components/NavBar.vue";
 import LoginComponent from "@/components/LoginComponent.vue";
 import DateRangeComponent from "@/components/DateRangeComponent.vue";
-
+import ThingyComponent from "@/components/ThingyComponent.vue";
 
 export default {
   components: {
-    NavBar, LoginComponent,
-    DateRangeComponent : DateRangeComponent
+    NavBar,
+    LoginComponent: LoginComponent,
+    DateRangeComponent : DateRangeComponent,
+    ThingyComponent: ThingyComponent
   },
   data: () => ({
     drawer: null,

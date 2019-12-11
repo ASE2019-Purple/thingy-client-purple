@@ -1,44 +1,30 @@
 <template>
   <v-container fluid>
     <v-row justify="space-around">
-      <v-sheet>
-        <v-list-item three-line>
-          <v-btn
-            color="error"
-            @click="callPublic"
-            class="mx-2"
-          >
-            Call Public
-          </v-btn>
 
-          <v-btn
-            class="mr-2"
-            color="warning"
-            @click="callProtected"
-          >
-            Call Protected
-          </v-btn>
+        
+        <v-col
+          cols="6"
+        >
 
-          <v-btn
-            color="success"
-            @click="callProfile"
-          >
-            Get Profile
-          </v-btn>
-        </v-list-item>
+          <PlantFormComponent />
 
-        <v-list-item>
-          {{ url }}
-        </v-list-item>
-        <v-list-item>
-          {{ info }}
-        </v-list-item>
-      </v-sheet>
+        </v-col>
+
+        <v-col
+          cols="6"
+        >
+          <WeatherCardComponent />
+
+        </v-col>
+            
     </v-row>
+
+
      
     <v-row>
       <v-col>
-        <vue-cal
+        <VueCal
           hide-view-selector
           default-view="month"
           style="height: 550px"
@@ -62,12 +48,15 @@ import axios from "axios"
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import { mapState } from 'vuex'
-
+import PlantFormComponent from "@/components/PlantFormComponent.vue";
+import WeatherCardComponent from "@/components/WeatherCardComponent.vue"
 
 export default {
   name: "Workflow",
   components: {
-    VueCal
+    VueCal: VueCal,
+    PlantFormComponent: PlantFormComponent,
+    WeatherCardComponent: WeatherCardComponent
   },
   methods: {
     async callProfile() {

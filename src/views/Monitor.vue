@@ -1,65 +1,21 @@
 <template>
   <div id="app">
     <v-container fluid>
+      
       <v-row
         justify="center"
       >
         <v-col
-          cols="12"
-          sm="6"
-        >
-          <keep-alive>
-            <chart
-              title="Temperature"
-              color="#EBCB8B"
-              api-endpoint="temperature"
-            />
-          </keep-alive>
-        </v-col>
-
-
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <keep-alive>
-            <chart
-              title="Humidity"
-              color="#8FBCBB"
-              api-endpoint="humidity"
-            />
-          </keep-alive>
-        </v-col>
-      </v-row>
-
-
-      <v-row
-        class="mb-6"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <keep-alive>
-            <chart
-              title="Pressure"
-              color="#4C566A"
-              api-endpoint="pressure"
-            />
-          </keep-alive>
-        </v-col>
-
-
-        <v-col
+          v-for="chart in charts"
+          v-bind:key="chart.property"
           cols="12"
           sm="6"
         >
           <keep-alive>
             <ChartComponent
-              title="Air Quality"
-              color="#5E81AC"
-              api-endpoint="air-quality"
+              :title="chart.title"
+              :color="chart.color"
+              :api-endpoint="chart.property"
             />
           </keep-alive>
         </v-col>
@@ -76,7 +32,29 @@ export default {
   data () {
     return {
       selected: 'chart',
-      currentView: 'chart'
+      currentView: 'chart',
+      charts: [
+        {
+          title: "Air Quality",
+          color: "#5E81AC",
+          property: "air-quality"
+        },
+        {
+          title: "Humidity",
+          color: "#8FBCBB",
+          property: "humidity"
+        },
+        {
+          title: "Temperature",
+          color: "#EBCB8B",
+          property: "temperature"
+        },
+        {
+          title: "Pressure",
+          color: "#4C566A",
+          property: "pressure"
+        }
+      ]
     }
   },
   components: {

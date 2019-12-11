@@ -28,7 +28,7 @@
 
 <script>
 import axios from "axios"
-
+import { mapState } from 'vuex'
 
 export default {
   name: "ChartComponent",
@@ -40,7 +40,7 @@ export default {
       seriesColor: this.color,
       colorInputIsSupported: null,
       animationDuration: 1000,
-      updateArgs: [true, true, {duration: 1000}],
+      updateArgs: [true, true, true,{duration: 1000}],
       chartOptions: {
         chart: {
           type: 'spline',
@@ -85,6 +85,18 @@ export default {
           color: this.color,
           type: 'area',
           name: this.title
+        },
+                 {
+          data: [],
+          color: this.color,
+          type: 'area',
+          name: this.title
+                 },
+                 {
+          data: [],
+          color: this.color,
+          type: 'area',
+          name: this.title
         }
         ]
       }
@@ -122,85 +134,70 @@ export default {
     this.fetchData()
     console.log("created")
   },
+  computed: mapState({
+    selectedDevices: state => state.selectedDevices,
+  }),
+  
   methods: {
+    
     async fetchData () {
-      
-      let sampleDataPoints = [[
-        {
-          "time": "2019-11-27T18:30:18.6102451Z",
-          "characteristic": "Thingy-Air-Quality-Characteristic",
-          "service": "Thingy-Environment-Service",
-          "thingy": "e6:97:3d:de:ca:a3",
-          "value": 612.32
-        },
-        {
-          "time": "2019-11-27T20:08:14.6329913Z",
-          "characteristic": "Thingy-Air-Quality-Characteristic",
-          "service": "Thingy-Environment-Service",
-          "thingy": "e6:97:3d:de:ca:a3",
-          "value": 400
-        },
-        {
-          "time": "2019-11-27T21:08:26.731525Z",
-          "characteristic": "Thingy-Air-Quality-Characteristic",
-          "service": "Thingy-Environment-Service",
-          "thingy": "e6:97:3d:de:ca:a3",
-          "value": 400
-        },
-        {
-          "time": "2019-11-27T22:08:26.731525Z",
-          "characteristic": "Thingy-Air-Quality-Characteristic",
-          "service": "Thingy-Environment-Service",
-          "thingy": "e6:97:3d:de:ca:a3",
-          "value": 400
-        }
-      ]]
-      
+
       const token = await this.$auth.getTokenSilently();
 
-      this.url = "http://localhost:8081/" + this.apiEndpoint
-      this.info = "";
-      
-      axios.get(this.url, {
-        headers: {
-          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-        }
-      }).then(response => {
+      console.log(this.selectedDevices[0])
 
-        let data = []
+      for (let thingy in this.selectedDevices){
+        console.log(thingy)
+
+        
+        /* this.chartOptions.series[thingy] = {
+         *   data: [],
+         *   color: this.color,
+         *   type: 'area',
+         *   name: this.title
+         * } */
+        
+        //this.selectedDevices[thingy].id
+
+        
+        await this.$api.property.get(this.selectedDevices[thingy].id, this.apiEndpoint, {
+          headers: {
+            Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }}).then(response => {
+        
+          let data = []
 
         // Add data to the graph in minute resolution
         // Second resolution is too much and doesn't render...
         
-        this.chartOptions.series[0].data = []
         let datetime, time;
+        
         response.data[0].forEach(point => {
-          // Remove seconds and miliseconds
+          
+          // Strip seconds and miliseconds
           time = point.time.slice(0,16)
+          
           if (datetime !== time){
-            console.log(datetime, time)
             datetime = time
             data.push([Date(datetime), point.value])
           } 
-          
 
         })
-        
-        this.chartOptions.series[0].data = data
-        console.log(this.chartOptions.series[0])
 
+
+        this.chartOptions.series[0].data = data
         
       }).catch(error => {
-        let data = []
-        sampleDataPoints[0].forEach(point => {
-          data.push([Date(point.time), point.value])
-        })
+
         console.log("Failed to get data - using sample data");
         console.log(error);
-        this.chartOptions.series[0].data = data
 
       });
 
+
+
+
+      }
     },
   }
 }
