@@ -1,23 +1,17 @@
 <template>
   <v-container fluid>
     <v-row justify="space-around">
+      <v-col
+        cols="6"
+      >
+        <PlantFormComponent />
+      </v-col>
 
-        
-        <v-col
-          cols="6"
-        >
-
-          <PlantFormComponent />
-
-        </v-col>
-
-        <v-col
-          cols="6"
-        >
-          <WeatherCardComponent />
-
-        </v-col>
-            
+      <v-col
+        cols="6"
+      >
+        <WeatherCardComponent />
+      </v-col>
     </v-row>
 
 

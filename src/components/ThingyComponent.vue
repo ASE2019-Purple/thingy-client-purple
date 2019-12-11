@@ -1,15 +1,14 @@
 <template>
   <div>
     <v-select
-          v-model="selectedThingys"
-          :items="thingys"
-          label="Select"
-          multiple
-          chips
-          hint="Select Devices"
-          persistent-hint
-    ></v-select>
-    
+      v-model="selectedThingys"
+      :items="thingys"
+      label="Select"
+      multiple
+      chips
+      hint="Select Devices"
+      persistent-hint
+    />
   </div>
 </template>
 

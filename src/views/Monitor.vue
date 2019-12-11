@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <v-container fluid>
-      
       <v-row
         justify="center"
       >
         <v-col
           v-for="chart in charts"
-          v-bind:key="chart.property"
+          :key="chart.property"
           cols="12"
           sm="6"
         >
@@ -58,7 +57,6 @@ export default {
     }
   },
   components: {
-    chart: ChartComponent,
     ChartComponent: ChartComponent
   },
   methods: {
