@@ -29,14 +29,6 @@ docker run -d -p 8080:80 --name thingy-client-purple_app_1  thingy-client-purple
 ``` shell
 docker build . -t thingy-client-purple
 ```
-### Build and run with docker-compose  
-
-``` shell
-in the project folder dokcer-compose up -d
-```
-
-
-
 
 ## Vue CLI Project setup
 
@@ -81,6 +73,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Vuetify
 
-    - [Vuetify Documentation](https://vuetifyjs.com)
-    - [Awesome Vuetify (Github)](https://github.com/vuetifyjs/awesome-vuetify)
-    - [Vuetify Loader](https://github.com/vuetifyjs/vuetify-loader)
+- [Vuetify Documentation](https://vuetifyjs.com)
+- [Awesome Vuetify (Github)](https://github.com/vuetifyjs/awesome-vuetify)
+- [Vuetify Loader](https://github.com/vuetifyjs/vuetify-loader)
