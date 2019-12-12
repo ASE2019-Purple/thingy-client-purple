@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: "NavBarComponent",
   data: () => ({
     drawer: null,
     right: null

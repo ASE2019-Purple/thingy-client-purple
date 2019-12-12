@@ -22,6 +22,8 @@
       <div class="flex-grow-1" />
 
       <ThingyComponent />
+
+      
       <DateRangeComponent />
 
       <LoginComponent />
@@ -47,7 +49,7 @@ export default {
     NavBarComponent: NavBarComponent,
     LoginComponent: LoginComponent,
     DateRangeComponent : DateRangeComponent,
-    ThingyComponent: ThingyComponent
+    ThingyComponent: ThingyComponent,
   },
   data: () => ({
     drawer: null,

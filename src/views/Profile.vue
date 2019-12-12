@@ -1,6 +1,16 @@
 <template>
   <v-container fluid>
     <v-row justify="space-around">
+      <v-sheet class="pa-10">
+        <v-list-item>
+          <ThingyFormComponent />
+        </v-list-item>
+      </v-sheet>
+    </v-row>
+
+
+        
+    <v-row justify="space-around">
       <v-sheet>
         <v-list-item three-line>
           <v-list-item-content>
@@ -66,9 +76,14 @@
 
 <script>
 import axios from "axios"
+import ThingyFormComponent from "@/components/ThingyFormComponent.vue";
+
 
 export default {
   name: "Profile",
+  components: {
+    ThingyFormComponent: ThingyFormComponent
+  },
   methods: {
     async callProfile() {
       const token = await this.$auth.getTokenSilently();
