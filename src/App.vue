@@ -1,11 +1,11 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="thingy-client">
     <v-navigation-drawer
       v-model="drawer"
       v-if="$auth.isAuthenticated"
       app
     >
-      <nav-bar />
+      <NavBarComponent />
     </v-navigation-drawer>
 
     <v-app-bar
@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBarComponent from "@/components/NavBarComponent.vue";
 import LoginComponent from "@/components/LoginComponent.vue";
 import DateRangeComponent from "@/components/DateRangeComponent.vue";
 import ThingyComponent from "@/components/ThingyComponent.vue";
 
 export default {
   components: {
-    NavBar,
+    NavBarComponent: NavBarComponent,
     LoginComponent: LoginComponent,
     DateRangeComponent : DateRangeComponent,
     ThingyComponent: ThingyComponent

@@ -1,17 +1,13 @@
 <template>
-  <div class="home">
-    <hello-world />
-  </div>
+  <p>TODO Make some nice welcome page for when not logged in.</p>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import HelloWorld from "@/components/HelloWorld.vue";
 export default {
   name: "Home",
   components: {
-    HelloWorld
   },
   methods: {
     // Log the user in

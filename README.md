@@ -78,3 +78,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### date-fsn
 
   - <https://date-fns.org/v2.8.1/docs/format>
+
+### Vuetify
+
+    - [Vuetify Documentation](https://vuetifyjs.com)
+    - [Awesome Vuetify (Github)](https://github.com/vuetifyjs/awesome-vuetify)
+    - [Vuetify Loader](https://github.com/vuetifyjs/vuetify-loader)
