@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
+      
       <v-col
         cols="12"
         sm="11"
@@ -11,6 +12,7 @@
           :update-args="updateArgs"
         />
       </v-col>
+      
       <v-col
         cols="12"
         sm="1"
@@ -144,48 +146,47 @@ export default {
 
       const token = await this.$auth.getTokenSilently();
 
-      console.log(this.selectedDevices[0])
+      console.log("Retrieve data for device " + this.selectedDevices[0])
 
       for (let thingy in this.selectedDevices){
         console.log(thingy)
-
         
-        /* this.chartOptions.series[thingy] = {
+        /* Replacing/creating the full chart series does not update the graph
+         * 
+         * this.chartOptions.series[thingy] = {
          *   data: [],
          *   color: this.color,
          *   type: 'area',
          *   name: this.title
          * } */
         
-        //this.selectedDevices[thingy].id
-
-        
         await this.$api.property.get(this.selectedDevices[thingy].id, this.apiEndpoint, {
           headers: {
-            Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+            Authorization: 'Bearer ' + token 
         }}).then(response => {
-        
+
+          /* 
+             Filter the response data. 
+             *Note:* Resolution in seconds is too much to display, thus 
+             we add only one entry per minute.
+           */
           let data = []
-
-        // Add data to the graph in minute resolution
-        // Second resolution is too much and doesn't render...
-        
-        let datetime, time;
-        
-        response.data[0].forEach(point => {
+          let last, curr;
           
-          // Strip seconds and miliseconds
-          time = point.time.slice(0,16)
-          
-          if (datetime !== time){
-            datetime = time
-            data.push([Date(datetime), point.value])
-          } 
+          response.data[0].forEach(point => {
+            
+            // Strip seconds and miliseconds
+            curr = point.time.slice(0,16)
+            
+            if (last !== curr){
+              last = curr
+              data.push([Date(last), point.value])
+            } 
 
-        })
+          })
 
-
-        this.chartOptions.series[0].data = data
+          // Update the chart data
+          this.chartOptions.series[0].data = data
         
       }).catch(error => {
 
@@ -193,9 +194,6 @@ export default {
         console.log(error);
 
       });
-
-
-
 
       }
     },
