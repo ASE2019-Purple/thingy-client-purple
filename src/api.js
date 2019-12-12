@@ -10,7 +10,7 @@ const API = "http://localhost:8081";
 // export const ThingyAPI = new Vue ({
   
 //   data () {
-//     properties : ["temperature", "air-quality", "pressure", "humidity"]
+//     properties : ["temperature", "airquality", "pressure", "humidity"]
 //   },
 //   methods : {
 //     async get () {

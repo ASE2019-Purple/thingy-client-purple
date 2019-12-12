@@ -172,7 +172,7 @@ export default {
           let data = []
           let last, curr;
           
-          response.data[0].forEach(point => {
+          response.data.forEach(point => {
             
             // Strip seconds and miliseconds
             curr = point.time.slice(0,16)

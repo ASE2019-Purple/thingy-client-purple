@@ -36,7 +36,7 @@ export default {
         {
           title: "Air Quality",
           color: "#5E81AC",
-          property: "air-quality"
+          property: "airquality"
         },
         {
           title: "Humidity",
