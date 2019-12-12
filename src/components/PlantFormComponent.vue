@@ -1,49 +1,103 @@
 <template>
   <form>
-    <v-text-field
-      v-model="name"
-      :error-messages="nameErrors"
-      :counter="10"
-      label="Name"
-      required
-      @input="$v.name.$touch()"
-      @blur="$v.name.$touch()"
-    />
-    <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
-      label="E-mail"
-      required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-    />
-    <v-select
-      v-model="select"
-      :items="items"
-      :error-messages="selectErrors"
-      label="Item"
-      required
-      @change="$v.select.$touch()"
-      @blur="$v.select.$touch()"
-    />
-    <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-    />
+    <h4>Add a new plant:</h4>
+    <v-container fluid>
+      <v-row
+        justify="center"
+      >
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="name"
+            :error-messages="nameErrors"
+            :counter="10"
+            label="Name"
+            required
+            @input="$v.name.$touch()"
+            @blur="$v.name.$touch()"
+          />
+        </v-col>
 
-    <v-btn
-      class="mr-4"
-      @click="submit"
-    >
-      submit
-    </v-btn>
-    <v-btn @click="clear">
-      clear
-    </v-btn>
+        <v-col
+          cols="6"
+          sm="6"
+        >
+          <v-text-field
+            v-model="email"
+            :error-messages="emailErrors"
+            label="Number of days (sunny)"
+            type="Number"
+            required
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+          />
+        </v-col>
+
+                
+                
+        <v-col
+          cols="6"
+          sm="6"
+        >
+          <v-text-field
+            v-model="email"
+            :error-messages="emailErrors"
+            label="Number of days (rainy)"
+            type="Number"
+            required
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+          />
+        </v-col>
+                
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-select
+            v-model="select"
+            :items="items"
+            :error-messages="selectErrors"
+            label="Thingy"
+            required
+            @change="$v.select.$touch()"
+            @blur="$v.select.$touch()"
+          />
+        </v-col>
+
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-checkbox
+            v-model="checkbox"
+            :error-messages="checkboxErrors"
+            label="Notify via telegram ?"
+            required
+            @change="$v.checkbox.$touch()"
+            @blur="$v.checkbox.$touch()"
+          />
+        </v-col>
+
+
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-btn
+            class="mr-4"
+            @click="submit"
+          >
+            submit
+          </v-btn>
+          <v-btn @click="clear">
+            clear
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </form>
 </template>
 

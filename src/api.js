@@ -27,7 +27,7 @@ const API = "http://localhost:8081";
 
 const property = {
    list: (thingyId, params) => axios.get(`${API}/thing/${thingyId}/properties`, params),
-   get: (thingyId, property, params) => axios.get(`${API}/thing/${thingyId}/property${property}`, params)
+   get: (thingyId, property, params) => axios.get(`${API}/thing/${thingyId}/property/${property}`, params)
 }
 
 const thingys = {

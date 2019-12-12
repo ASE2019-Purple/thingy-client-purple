@@ -35,7 +35,11 @@ docker build . -t thingy-client-purple
 in the project folder dokcer-compose up -d
 ```
 
+
+
+
 ## Vue CLI Project setup
+
 ```
 yarn install
 ```
@@ -62,7 +66,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
 
 
 ## Resources
