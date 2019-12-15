@@ -1,61 +1,58 @@
 <template>
   <div>
-    <v-btn
-      text
-      class="py-2"
+    <v-menu
+      ref="menu"
+      v-model="menu"
+      :close-on-content-click="false"
+      :return-value.sync="dates"
+      transition="scale-transition"
+      offset-y
+      min-width="200px"
     >
-      <v-menu
-        class="py-2" 
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :return-value.sync="dates"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="dateRangeText"
-            label="Date range"
-            prepend-icon="mdi-calendar"
-            v-on="on"
-            readonly
-          />
-          <!-- <v-text-field
+      <template v-slot:activator="{ on }">
+        <v-text-field
+          solo
+          v-model="dateRangeText"
+          prepend-icon="mdi-calendar"
+          v-on="on"
+          readonly
+          class="pt-5" 
+        />
+        <!-- prepend-icon="mdi-calendar"
+             label="Date range"
+               <v-text-field
                v-model="date"
                label="Start Date"
                prepend-icon="magnify"
                readonly
                v-on="on"
                ></v-text-field> -->
-        </template>
-        <!-- no-title scrollable -->
-        <v-date-picker
-          v-model="dates"
-          scrollable
-          no-title
-          range
+      </template>
+      <!-- no-title scrollable -->
+      <v-date-picker
+        v-model="dates"
+        scrollable
+        no-title
+        range
+      >
+        <v-spacer />
+        <v-btn
+          text
+          color="primary"
+          @click="menu = false"
         >
-          <v-spacer />
-          <v-btn
-            text
-            color="primary"
-            @click="menu = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="$store.commit('setDates', dates ); $refs.menu.save(dates)"
-          >
-            OK
-          </v-btn>
-        </v-date-picker>
-      </v-menu>
-    </v-btn>
-  </div>
+          Cancel
+        </v-btn>
+        <v-btn
+          text
+          color="primary"
+          @click="$store.commit('setDates', dates ); $refs.menu.save(dates)"
+        >
+          OK
+        </v-btn>
+      </v-date-picker>
+    </v-menu>
+  </div>    
 </template>
 
 <script>

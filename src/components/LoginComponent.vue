@@ -11,26 +11,28 @@
       </v-btn>
 
       <template v-else>
-        <v-avatar
-          size="36"
-          class="pa-8"
-        >
-          <img
-            :src="$auth.user.picture"
-            :alt="$auth.user.name"
-          >
-        </v-avatar>
-
         <v-menu
           left
           bottom
         >
           <template v-slot:activator="{ on }">
             <v-btn
+              class="mx-2"
               icon
+              dark
               v-on="on"
             >
-              <v-icon>mdi-dots-vertical</v-icon>
+              <v-avatar
+                size="36"
+              >
+                <img
+                  :src="$auth.user.picture"
+                  :alt="$auth.user.name"
+                >
+              </v-avatar>
+
+        
+              <!-- <v-icon>mdi-dots-vertical</v-icon> -->
             </v-btn>
           </template>
 
@@ -43,14 +45,6 @@
               <v-list-item-content>
                 <v-list-item-title>Logout</v-list-item-title>
               </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item
-              v-for="n in 5"
-              :key="n"
-              @click="() => {}"
-            >
-              <v-list-item-title>Option {{ n }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -69,7 +63,7 @@ export default {
   methods: {
     // Log the user in
     login() {
-      this.$auth.loginWithRedirect();
+      //this.$auth.loginWithRedirect();
     },
     // Log the user out
     logout() {

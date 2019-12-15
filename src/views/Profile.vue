@@ -1,74 +1,51 @@
 <template>
   <v-container fluid>
     <v-row justify="space-around">
-      <v-sheet class="pa-10">
+      <v-col
+        cols="6"
+      >
+        <ThingyTableComponent />
+      </v-col>
+
+      <v-col
+        cols="8"
+      >
         <v-list-item>
-          <ThingyFormComponent />
+          <PlantTableComponent />
         </v-list-item>
-      </v-sheet>
+      </v-col>
     </v-row>
 
 
-        
-    <v-row justify="space-around">
-      <v-sheet>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">
-              Logged in as
-            </div>
-            <v-list-item-title class="headline mb-1">
-              {{
-                $auth.user.name
-              }}
-            </v-list-item-title>
-            <v-list-item-subtitle>{{ $auth.user.email }}</v-list-item-subtitle>
-          </v-list-item-content>
+    <!-- 
+         
+         <v-row justify="space-around">
+         <v-sheet>
+         <v-list-item three-line>
+         <v-list-item-content>
+         <div class="overline mb-4">
+         Logged in as
+         </div>
+         <v-list-item-title class="headline mb-1">
+         {{
+         $auth.user.name
+         }}
+         </v-list-item-title>
+         <v-list-item-subtitle>{{ $auth.user.email }}</v-list-item-subtitle>
+         </v-list-item-content>
 
-          <v-list-item-avatar
-            tile
-            size="80"
-          >
-            <img
-              :src="$auth.user.picture"
-              :alt="$auth.user.name"
-            >
-          </v-list-item-avatar>
-        </v-list-item>
-
-
-        
-        <v-btn
-          color="error"
-          @click="callPublic"
-          class="mx-2"
-        >
-          Call Public
-        </v-btn>
-
-        <v-btn
-          class="mr-2"
-          color="warning"
-          @click="callProtected"
-        >
-          Call Protected
-        </v-btn>
-
-        <v-btn
-          color="success"
-          @click="callProfile"
-        >
-          Get Profile
-        </v-btn>
-        
-        <v-list-item>
-          {{ url }}
-        </v-list-item>
-        <v-list-item>
-          {{ info }}
-        </v-list-item>
-      </v-sheet>
-    </v-row>
+         <v-list-item-avatar
+         tile
+         size="80"
+         >
+         <img
+         :src="$auth.user.picture"
+         :alt="$auth.user.name"
+         >
+         </v-list-item-avatar>
+         </v-list-item>
+         </v-sheet>
+         </v-row> -->
   </v-container>
 </template>
 
@@ -76,63 +53,18 @@
 
 <script>
 import axios from "axios"
-import ThingyFormComponent from "@/components/ThingyFormComponent.vue";
+import ThingyTableComponent from "@/components/ThingyTableComponent.vue";
+import PlantTableComponent from "@/components/PlantTableComponent.vue";
 
 
 export default {
   name: "Profile",
   components: {
-    ThingyFormComponent: ThingyFormComponent
+    ThingyTableComponent: ThingyTableComponent,
+    PlantTableComponent: PlantTableComponent
   },
   methods: {
-    async callProfile() {
-      const token = await this.$auth.getTokenSilently();
-      // TODO set the API path in configuration
-      this.url = "http://localhost:8000/profile";
-      this.info = "";
-      axios.get(this.url, {
-        headers: {
-          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-        }
-      }).then(response => {
-        this.info = response.data;
-      }).catch(error => {
-        this.info = error}
-      );
-      
-    },
-    async callProtected() {
-      const token = await this.$auth.getTokenSilently();
-      // TODO set the API path in configuration
-      this.url = "http://localhost:8000/protected"
-      this.info = "";
-      axios.get(this.url, {
-        headers: {
-          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-        }
-      }).then(response => {
-        this.info = response.data;
-      }).catch(error => {
-        console.log(error);
-        this.info = error}
-      );
 
-    },
-    async callPublic() {
-      // Get the access token from the auth wrapper
-      const token = await this.$auth.getTokenSilently();
-      this.url = "http://localhost:8000/public";
-      this.info = "";
-      // Use Axios to make a call to the API
-      const { data } = await axios.get(this.url, {
-        headers: {
-          Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
-        }
-      });
-
-      this.info = data;
-      
-    }
   },
   data () {
     return {
@@ -141,10 +73,6 @@ export default {
     }
   },
   mounted () {
-    /* TODO get host of the thingy-api from env  */
-    axios
-      .get('http://localhost:8000/')
-      .then(response => (this.info = response.data))
     
   }
 };

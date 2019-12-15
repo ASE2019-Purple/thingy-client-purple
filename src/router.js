@@ -32,8 +32,8 @@ export default new Router({
       beforeEnter: authGuard
      },
     {
-      path: "/profile",
-      name: "profile",
+      path: "/settings",
+      name: "Settings",
       component: Profile,
       beforeEnter: authGuard
     }

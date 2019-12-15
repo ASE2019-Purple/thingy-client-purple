@@ -21,10 +21,11 @@
 
       <div class="flex-grow-1" />
 
+      <DateRangeComponent />
+
       <ThingyComponent />
 
       
-      <DateRangeComponent />
 
       <LoginComponent />
     </v-app-bar>
