@@ -68,7 +68,7 @@ export default {
   created () {
     // Init dates from the v-model binding
     //this.dates = this.$store.getter.dateRangeISO
-    console.log(this.dates)
+
   },
   computed: {
     dateRangeText () {

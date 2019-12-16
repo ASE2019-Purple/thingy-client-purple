@@ -145,7 +145,7 @@
 
                 const token = await this.$auth.getTokenSilently();
 
-                console.log("Retrieve data for device " + this.selectedDevices[0])
+                //console.log("Retrieve data for device " + this.selectedDevices[0])
 
                 for (let thingy in this.selectedDevices) {
                 //    console.log(thingy);

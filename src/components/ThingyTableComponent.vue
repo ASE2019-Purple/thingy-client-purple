@@ -164,7 +164,6 @@ export default {
 
     initialize () {
       this.thingys = this.$store.getters.devices
-      console.log(this.thingys)
     },
 
     editItem (item) {
