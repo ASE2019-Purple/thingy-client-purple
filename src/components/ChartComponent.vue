@@ -133,7 +133,6 @@
         },
         created() {
             this.fetchData();
-            console.log("created")
         },
         computed: mapState({
             selectedDevices: state => state.selectedDevices,

@@ -222,6 +222,8 @@ export default {
     },
 
     deleteItem (item) {
+      // TODO delete in api
+      // this.$api.plants.delete()
       const index = this.plants.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.plants.splice(index, 1)
     },
@@ -245,7 +247,7 @@ export default {
           response => {
             Object.assign(this.plants[this.editedIndex], this.editedItem)
         }).catch(error => {
-          console.log(error)                      
+          //console.log(error)                      
         })
         
       } else {
@@ -257,7 +259,7 @@ export default {
           response => {
             this.plants.push(this.editedItem)
         }).catch(error => {
-          console.log(error)                      
+          //console.log(error)                      
         })
       }
       this.close()

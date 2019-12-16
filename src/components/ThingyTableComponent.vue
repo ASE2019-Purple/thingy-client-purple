@@ -200,7 +200,7 @@ export default {
           response => {
             this.thingys.push(this.editedItem)
         }).catch(error => {
-        console.log(error)                      
+        //console.log(error)                      
         })
       }
       this.close()

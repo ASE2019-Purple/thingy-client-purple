@@ -29,7 +29,7 @@ export default {
     async fetchItem () {
       // return the Promise from the action
       //const token = await this.$auth.getTokenSilently();
-              console.log("Fetch")
+      //console.log("Fetch")
 
       //headers: {
       //    Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
@@ -42,9 +42,8 @@ export default {
             this.$store.commit('setThingys', response.data);
             this.thingys = this.$store.getters.thingys;
             this.$store.commit('selectDevices', this.thingys);
-
           } else {
-            console.log("Failed to retrieve thingys")
+            //console.log("Failed to retrieve thingys")
             this.$store.commit('setThingys',[
             {id:1, location:"Fribourg", mac_address:"123"},
             {id:2, location:"Morat", mac_address:"123"},
