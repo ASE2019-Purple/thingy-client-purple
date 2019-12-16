@@ -223,7 +223,7 @@ export default {
 
     deleteItem (item) {
       // TODO delete in api
-      // this.$api.plants.delete()
+      this.$api.plants.delete(item.id)
       const index = this.plants.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.plants.splice(index, 1)
     },

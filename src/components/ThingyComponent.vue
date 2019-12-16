@@ -55,6 +55,15 @@ export default {
           console.log(error);
           
         })
+      this.$api.plants.list({
+
+              }
+      ).then(
+              response =>{
+
+              }
+      )
+
     
     }
   },

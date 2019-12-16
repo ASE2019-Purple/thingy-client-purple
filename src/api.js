@@ -42,6 +42,7 @@ const thingys = {
 const plants = {
   list: (params) => axios.get(`${API}/plants`, params),
   post: (params) => axios.post(`${API}/plant/`, params),
+  delete: (plant_id, params) => axios.delete(`${API}/plant/${plant_id}`, params),
   get: (plant_id, params) => axios.get(`${API}/plant/${plant_id}`, params),
   patch: (plant_id, params) => axios.patch(`${API}/plant/${plant_id}`, params),
 }

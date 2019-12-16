@@ -58,6 +58,10 @@ export default new Vuex.Store({
       state.devices = devices;
       state.selectDevices = state.devices;
     },
+    setPlant (state, plants) {
+      state.plants = plants;
+      state.selectPlants = state.plants;
+    },
 
   },
   actions: {

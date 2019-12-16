@@ -63,3 +63,5 @@ yarn.lock
 
 # Jetbrain Webstorm configuration exclude
 .idea/
+
+yarn-error.log
