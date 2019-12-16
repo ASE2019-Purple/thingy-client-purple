@@ -207,7 +207,9 @@ export default {
   }),
   
   created () {
-    this.initialize()
+    this.initialize(),
+    this.fetchItem()
+
   },
   methods: {
     async fetchItem () {
