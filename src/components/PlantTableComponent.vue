@@ -74,6 +74,17 @@
                       />
                     </v-col>
 
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.nb_rainy_days"
+                        type="Number"
+                        label="#Rainy Days"
+                      />
+                    </v-col>
                     
                     <v-col
                       cols="12"
@@ -171,6 +182,7 @@ export default {
       { text: 'Name', value: 'name' },
       { text: 'Sunny Days', value: 'nb_sunny_days' },
       { text: 'Cloudy Days', value: 'nb_cloudy_days' },
+      { text: 'Rainy Days', value: 'nb_rainy_days' },
       { text: 'Thingy', value: 'thingy' },
       { text: 'Actions', value: 'action', sortable: false },
     ],
@@ -178,14 +190,16 @@ export default {
     editedIndex: -1,
     editedItem: {
       nb_sunny_days: 3,
-      nb_cloudy_days:5,
+      nb_cloudy_days: 5,
+      nb_rainy_days: 2,
       watering_interval_days: 0,
       name: '',
       thingy: {}
     },
     defaultItem: {
       nb_sunny_days: 3,
-      nb_cloudy_days:5,
+      nb_cloudy_days: 5,
+      nb_rainy_days: 3,
       watering_interval_days: 0,
       name: '',
       thingy: {}
@@ -255,7 +269,9 @@ export default {
       }, 300)
     },
 
-    save () {
+  async  save () {
+      const token = await this.$auth.getTokenSilently();
+
       if (this.editedIndex > -1) {
         
         this.$api.plants.patch(this.editedItem.id, this.editedItem, {

@@ -28,12 +28,12 @@ export default {
   methods: {
     async fetchItem () {
       // return the Promise from the action
-      //const token = await this.$auth.getTokenSilently();
+      const token = await this.$auth.getTokenSilently();
       //console.log("Fetch")
 
-      //headers: {
-      //    Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
-      //  }
+      headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+      }
       this.$api.thingys.list({
         
       }).then(
