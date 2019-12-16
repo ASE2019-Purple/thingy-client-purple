@@ -11,10 +11,7 @@ export default new Vuex.Store({
     endDate: new Date(),
     devices: [],
     selectedDevices: [],
-    plants: [
-      {id:1, name:"Plant 1", nb_sunny_days:2, nb_cloudy_days:4, watering_interval_days:3, thingy: 2},
-      {id:2, name:"Plant 2", nb_sunny_days:2, nb_cloudy_days:4, watering_interval_days:2, thingy: 1}
-    ],
+    plants: [],
   },
   getters: {
     dateRangeText: state => {
@@ -58,7 +55,7 @@ export default new Vuex.Store({
       state.devices = devices;
       state.selectDevices = state.devices;
     },
-    setPlant (state, plants) {
+    setPlants (state, plants) {
       state.plants = plants;
       state.selectPlants = state.plants;
     },

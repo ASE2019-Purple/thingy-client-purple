@@ -210,7 +210,24 @@ export default {
     this.initialize()
   },
   methods: {
+    async fetchItem () {
 
+      this.$api.plants.list({}).then(
+              response => {
+                if (response.status === 200) {
+                  this.$store.commit('setPlants', response.data);
+                  this.plants = this.$store.getters.plants;
+              //    this.$store.commit('selectPlants', this.plants);
+                } else {
+                  console.log("Failed to retrieve Plants");
+                  this.$store.commit('setplants', [])
+                }
+              }
+      ).catch(error => {
+        console.log(error);
+
+      })
+    },
     initialize () {
       this.plants = this.$store.getters.plants
     },
@@ -222,7 +239,7 @@ export default {
     },
 
     deleteItem (item) {
-      // TODO delete in api
+
       this.$api.plants.delete(item.id)
       const index = this.plants.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.plants.splice(index, 1)

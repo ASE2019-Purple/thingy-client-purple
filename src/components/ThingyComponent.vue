@@ -38,7 +38,7 @@ export default {
         
       }).then(
         response => {
-          if (response.status == 200){
+          if (response.status === 200){
             this.$store.commit('setThingys', response.data);
             this.thingys = this.$store.getters.thingys;
             this.$store.commit('selectDevices', this.thingys);
@@ -47,7 +47,7 @@ export default {
             this.$store.commit('setThingys',[
             {id:1, location:"Fribourg", mac_address:"123"},
             {id:2, location:"Morat", mac_address:"123"},
-            {id:3, location:"Bern", mac_address:"123sadd"}
+            {id:3, location:"Bern", mac_address:"1236"}
           ])
             }
 
