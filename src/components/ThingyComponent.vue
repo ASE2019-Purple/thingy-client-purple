@@ -41,7 +41,7 @@ export default {
           if (response.status == 200){
             this.$store.commit('setThingys', response.data);
             this.thingys = this.$store.getters.thingys;
-            this.$store.commit('selectedDevices', this.thingys);
+            this.$store.commit('selectDevices', this.thingys);
 
           } else {
             console.log("Failed to retrieve thingys")
