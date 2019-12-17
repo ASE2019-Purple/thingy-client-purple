@@ -192,7 +192,7 @@ export default {
           response => {
             Object.assign(this.thingys[this.editedIndex], this.editedItem)
         }).catch(error => {
-        console.log(error)                      
+        //console.log(error)                      
         })
         
       } else {

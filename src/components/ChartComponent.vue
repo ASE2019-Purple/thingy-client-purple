@@ -189,8 +189,8 @@
 
                     }).catch(error => {
 
-                        console.log("Failed to get data - using sample data");
-                        console.log(error);
+                        //console.log("Failed to get data - using sample data");
+                        //console.log(error);
 
                     });
 

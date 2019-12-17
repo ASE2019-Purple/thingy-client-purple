@@ -104,8 +104,8 @@
                       md="4"
                     >
                       <v-select
-                        :items="$store.getters.thingys"
-                        v-model="editedItem.thingy"
+                        :items="thingyItems"
+                        v-model="editedItem.thing_id"
                         label="Thingy"
                         required
                       />
@@ -153,7 +153,7 @@
       <template v-slot:no-data>
         <v-btn
           color="primary"
-          @click="initialize"
+          @click="dialog=false"
         >
           Reset
         </v-btn>
@@ -194,7 +194,7 @@ export default {
       nb_rainy_days: 2,
       watering_interval_days: 0,
       name: '',
-      thingy: {}
+      thing_id: 1,
     },
     defaultItem: {
       nb_sunny_days: 3,
@@ -202,7 +202,7 @@ export default {
       nb_rainy_days: 3,
       watering_interval_days: 0,
       name: '',
-      thingy: {}
+      thing_id: 1
     },
   }),
 
@@ -213,39 +213,34 @@ export default {
   },
   
   computed: mapState({
-    items: state => state.devices,
+    thingyItems: state => state.devices.map(device =>( {text: device.location, value: device.id})),
 
     formTitle (state) {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     },
   }),
   
   created () {
-    this.initialize(),
-    this.fetchItem()
-
+    this.fetchItems()
   },
   methods: {
-    async fetchItem () {
+    async fetchItems () {
 
       this.$api.plants.list({}).then(
-              response => {
-                if (response.status === 200) {
-                  this.$store.commit('setPlants', response.data);
-                  this.plants = this.$store.getters.plants;
-              //    this.$store.commit('selectPlants', this.plants);
-                } else {
-                  console.log("Failed to retrieve Plants");
-                  this.$store.commit('setplants', [])
-                }
-              }
+        response => {
+          if (response.status === 200) {
+            this.$store.commit('setPlants', response.data);
+            this.plants = this.$store.getters.plants;
+            //    this.$store.commit('selectPlants', this.plants);
+          } else {
+            //console.log("Failed to retrieve Plants");
+            this.$store.commit('setPlants', [])
+          }
+        }
       ).catch(error => {
-        console.log(error);
+        //console.log(error);
 
       })
-    },
-    initialize () {
-      this.plants = this.$store.getters.plants
     },
 
     editItem (item) {
@@ -256,9 +251,19 @@ export default {
 
     deleteItem (item) {
 
-      this.$api.plants.delete(item.id)
       const index = this.plants.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.plants.splice(index, 1)
+      const plant = this.plants[index]
+      
+      if (confirm('Are you sure you want to delete this item?')) {
+        this.$api.plants.delete(plant.id).then(response => {
+          // Refresh items
+          this.fetchItems()
+        }).catch(error => {
+          //console.log(error);
+
+        })
+      } 
+      
     },
 
     close () {
@@ -269,21 +274,21 @@ export default {
       }, 300)
     },
 
-  async  save () {
+    async  save () {
       const token = await this.$auth.getTokenSilently();
 
       if (this.editedIndex > -1) {
         
-        this.$api.plants.patch(this.editedItem.id, this.editedItem, {
+        this.$api.plants.put(this.editedItem.id, this.editedItem, {
           headers: {
-            Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
+            Authorization: 'Bearer ' + token, 
           }
         }).then(
           response => {
-            Object.assign(this.plants[this.editedIndex], this.editedItem)
-        }).catch(error => {
-          //console.log(error)                      
-        })
+            this.fetchItems()
+          }).catch(error => {
+            //console.log(error)                      
+          })
         
       } else {
         this.$api.plants.post(this.editedItem, {
@@ -292,10 +297,10 @@ export default {
           }
         }).then(
           response => {
-            this.plants.push(this.editedItem)
-        }).catch(error => {
-          //console.log(error)                      
-        })
+            this.fetchItems()
+          }).catch(error => {
+            //console.log(error)                      
+          })
       }
       this.close()
     }
