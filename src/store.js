@@ -12,6 +12,7 @@ export default new Vuex.Store({
     devices: [],
     selectedDevices: [],
     plants: [],
+    selectedPlants: []
   },
   getters: {
     dateRangeText: state => {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },    
     selectedDevices: state => {
       return state.selectedDevices;
+    },
+    selectedPlants: state => {
+      return state.selectedPlants;
     } 
   },
   mutations: {
@@ -53,11 +57,14 @@ export default new Vuex.Store({
     },
     setThingys (state, devices) {
       state.devices = devices;
-      state.selectDevices = state.devices;
+      state.selectedDevices = state.devices;
     },
     setPlants (state, plants) {
       state.plants = plants;
-      state.selectPlants = state.plants;
+      state.selectedPlants = state.plants;
+    },
+    selectPlants (state, plant_ids) {
+      state.selectedPlants = state.plants.filter(plant => plant_ids.includes(plant.id));
     },
 
   },
