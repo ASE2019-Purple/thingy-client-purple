@@ -5,9 +5,12 @@
       :items="plants"
       sort-by="calories"
       class="elevation-1"
-      group-by="thingy"
-      show-group-by
+  
     >
+      <!-- 
+           group-by="thing.location"
+           show-group-by -->
+
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Plants</v-toolbar-title>
@@ -153,9 +156,9 @@
       <template v-slot:no-data>
         <v-btn
           color="primary"
-          @click="dialog=false"
+          @click="fetchItems()"
         >
-          Reset
+          Load
         </v-btn>
       </template>
     </v-data-table>
@@ -174,7 +177,7 @@ export default {
     dialog: false,
     headers: [
       {
-        text: 'Thingy (ID)',
+        text: 'ID',
         align: 'left',
         sortable: true,
         value: 'id',
@@ -183,7 +186,7 @@ export default {
       { text: 'Sunny Days', value: 'nb_sunny_days' },
       { text: 'Cloudy Days', value: 'nb_cloudy_days' },
       { text: 'Rainy Days', value: 'nb_rainy_days' },
-      { text: 'Thingy', value: 'thingy' },
+      { text: 'Thing', value: 'thing.location' },
       { text: 'Actions', value: 'action', sortable: false },
     ],
     plants: [],
@@ -195,6 +198,7 @@ export default {
       watering_interval_days: 0,
       name: '',
       thing_id: 1,
+      thing: {}
     },
     defaultItem: {
       nb_sunny_days: 3,
@@ -202,7 +206,8 @@ export default {
       nb_rainy_days: 3,
       watering_interval_days: 0,
       name: '',
-      thing_id: 1
+      thing_id: 1,
+      thing: {}
     },
   }),
 
@@ -230,7 +235,7 @@ export default {
         response => {
           if (response.status === 200) {
             this.$store.commit('setPlants', response.data);
-            this.plants = this.$store.getters.plants;
+            this.plants = this.$store.getters.plantsWithThings;
             //    this.$store.commit('selectPlants', this.plants);
           } else {
             //console.log("Failed to retrieve Plants");

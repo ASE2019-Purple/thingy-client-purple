@@ -30,6 +30,13 @@ export default new Vuex.Store({
     plants: state => {
       return state.plants;
     },
+    plantsWithThings: state => {
+     const items= state.plants.map(plant => Object.assign( plant, {
+       thing: state.devices.filter(thing => thing.id===plant.thing_id).shift()
+     }));
+      console.log(items)
+      return items;
+    },
     thingys: state => {
       return state.devices.map(thingy => thingy.location);
     },
