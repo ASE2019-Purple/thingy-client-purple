@@ -34,7 +34,6 @@ export default new Vuex.Store({
      const items= state.plants.map(plant => Object.assign( plant, {
        thing: state.devices.filter(thing => thing.id===plant.thing_id).shift()
      }));
-      console.log(items)
       return items;
     },
     thingys: state => {

@@ -11,9 +11,7 @@
       <v-col
         cols="6"
       >
-
         <PlantsSelectsComponent />
-      
       </v-col>
     </v-row>
 

@@ -5,7 +5,6 @@
       :items="plants"
       sort-by="calories"
       class="elevation-1"
-  
     >
       <!-- 
            group-by="thing.location"

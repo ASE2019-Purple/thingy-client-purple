@@ -3,21 +3,24 @@
     <v-card-text>
       <v-container fluid>
         <v-row>
-          <v-col v-for="thing in thingys"
-                 v-bind:key="thing.id"
-                 cols="12" sm="4" md="4">
-
-            <h3>{{thing.location }}</h3>
-            <v-checkbox v-for="plant in plants.filter(plant => plant.thing_id == thing.id)"
-                        v-model="selected"
-                        v-bind:key="plant.id"
+          <v-col
+            v-for="thing in thingys"
+            :key="thing.id"
+            cols="12"
+            sm="4"
+            md="4"
+          >
+            <h3>{{ thing.location }}</h3>
+            <v-checkbox
+              v-for="plant in plants.filter(plant => plant.thing_id == thing.id)"
+              v-model="selected"
+              :key="plant.id"
               :label="plant.name"
               color="green" 
               :value="plant.id"
               hide-details
-            ></v-checkbox>
+            />
           </v-col>
-        
         </v-row>
       </v-container>
     </v-card-text>
