@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = process.env.VUE_APP_THINGY_API;
 
-const API = "http://localhost:8081";
+const API = process.env.NODE_ENV === 'production' ? "http://35.233.66.177:8081" : "http://localhost:8081";;
 
 // TODO implement a vue plugin that injects the auth header into the requests
 
