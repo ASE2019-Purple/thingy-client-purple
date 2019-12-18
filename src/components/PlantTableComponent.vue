@@ -48,7 +48,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Location name"
+                        label="Plant name"
                       />
                     </v-col>
 
@@ -58,33 +58,21 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.nb_sunny_days"
+                        v-model="editedItem.optimal_temperature"
                         type="Number"
-                        label="#Sunny Days"
+                        label="Optimal Temperature (°C)"
                       />
                     </v-col>
-
+                    
                     <v-col
                       cols="12"
                       sm="6"
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.nb_cloudy_days"
+                        v-model="editedItem.optimal_humidity"
                         type="Number"
-                        label="#Cloudy Days"
-                      />
-                    </v-col>
-
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.nb_rainy_days"
-                        type="Number"
-                        label="#Rainy Days"
+                        label="Optimal Humidity (%)"
                       />
                     </v-col>
                     
@@ -182,27 +170,25 @@ export default {
         value: 'id',
       },
       { text: 'Name', value: 'name' },
-      { text: 'Sunny Days', value: 'nb_sunny_days' },
-      { text: 'Cloudy Days', value: 'nb_cloudy_days' },
-      { text: 'Rainy Days', value: 'nb_rainy_days' },
+      { text: 'Watering Interval (days)', value: 'watering_interval_days' },
+      { text: 'Optimal Temperature', value: 'optimal_temperature' },
+      { text: 'Optimal Humidity Days', value: 'optimal_humidity' },
       { text: 'Thing', value: 'thing.location' },
       { text: 'Actions', value: 'action', sortable: false },
     ],
     plants: [],
     editedIndex: -1,
     editedItem: {
-      nb_sunny_days: 3,
-      nb_cloudy_days: 5,
-      nb_rainy_days: 2,
+      optimal_temperature: 3,
+      optimal_humidity: 2,
       watering_interval_days: 0,
       name: '',
       thing_id: 1,
       thing: {}
     },
     defaultItem: {
-      nb_sunny_days: 3,
-      nb_cloudy_days: 5,
-      nb_rainy_days: 3,
+      optimal_temperature: 3,
+      optimal_humidity: 3,
       watering_interval_days: 0,
       name: '',
       thing_id: 1,
