@@ -240,8 +240,6 @@ export default {
     },
 
     deleteItem (item) {
-
-      console.log("hellooooo")
       const index = this.plants.indexOf(item)
       const plant = this.plants[index]
       
