@@ -63,7 +63,7 @@
                         label="Optimal Temperature (°C)"
                       />
                     </v-col>
-                    
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -179,16 +179,16 @@ export default {
     plants: [],
     editedIndex: -1,
     editedItem: {
-      optimal_temperature: 3,
-      optimal_humidity: 2,
+      optimal_temperature: 0,
+      optimal_humidity: 0,
       watering_interval_days: 0,
       name: '',
       thing_id: 1,
       thing: {}
     },
     defaultItem: {
-      optimal_temperature: 3,
-      optimal_humidity: 3,
+      optimal_temperature: 0,
+      optimal_humidity: 0,
       watering_interval_days: 0,
       name: '',
       thing_id: 1,
@@ -241,6 +241,7 @@ export default {
 
     deleteItem (item) {
 
+      console.log("hellooooo")
       const index = this.plants.indexOf(item)
       const plant = this.plants[index]
       
