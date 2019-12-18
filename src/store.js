@@ -57,9 +57,9 @@ export default new Vuex.Store({
       state.startDate = d1 <= d2 ? d1 : d2;
       state.endDate = d1 > d2 ? d1 : d2;
     },
-    selectDevices(state, names) {
+    selectDevices(state, thingyIds) {
       // Set thingys
-      state.selectedDevices = state.devices.filter(device => names.includes(device.location));
+      state.selectedDevices = state.devices.filter(device => thingyIds.includes(device.id));
     },
     setThingys (state, devices) {
       state.devices = devices;

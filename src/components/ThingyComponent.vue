@@ -19,17 +19,18 @@ export default {
   name: "ThingyComponent",
   props: {},
   data: () => ({
-    thingys: [],
-    selectedThingys: []
+    selectedThingys: [],
   }),
-  created () {
-    this.fetchItem()
-  },
+  computed: mapState({
+    
+    thingys: state => {
+      return state.devices.map(device =>( {text: device.location, value: device.id}))
+    },
+  }),
   methods: {
     async fetchItem () {
       // return the Promise from the action
       //const token = await this.$auth.getTokenSilently();
-      //console.log("Fetch")
 
       //headers: {
       //    Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
@@ -40,41 +41,25 @@ export default {
         response => {
           if (response.status === 200){
             this.$store.commit('setThingys', response.data);
-            this.thingys = this.$store.getters.thingys;
-            this.$store.commit('selectDevices', this.thingys);
+            this.selectedThingys = [this.$store.getters.devices[0].id]
           } else {
             //console.log("Failed to retrieve thingys")
-            this.$store.commit('setThingys',[
-            {id:1, location:"Fribourg", mac_address:"123"},
-            {id:2, location:"Morat", mac_address:"123"},
-            {id:3, location:"Bern", mac_address:"1236"}
-          ])
+            this.$store.commit('setThingys',[])
             }
 
         }).catch(error => {
           //console.log(error);
-          
         })
-      this.$api.plants.list({
-
-              }
-      ).then(
-              response =>{
-
-              }
-      )
-
-    
+      
     }
   },
   mounted () {
-
-    // TODO initialize store with thingys from the api
-      
+    this.fetchItem()
   },
   watch: {
-    selectedThingys (thingys) {
-      this.$store.commit('selectDevices', thingys)
+    selectedThingys (thingyIds) {
+      this.$store.commit('selectDevices', thingyIds)
+
     }
   }
 };
