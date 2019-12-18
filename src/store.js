@@ -51,11 +51,15 @@ export default new Vuex.Store({
   },
   mutations: {
     setDates(state, dates) {
-      
-      let d1 = new Date(dates[0]);
-      let d2 = new Date(dates[1]);
-      state.startDate = d1 <= d2 ? d1 : d2;
-      state.endDate = d1 > d2 ? d1 : d2;
+      if (dates.length == 1) {
+        state.startDate = new Date(dates[0]);
+        state.endDate = state.startDate;
+      } else {
+        let d1 = new Date(dates[0]);
+        let d2 = new Date(dates[1]);
+        state.startDate = d1 <= d2 ? d1 : d2;
+        state.endDate = d1 > d2 ? d1 : d2;
+      }
     },
     selectDevices(state, thingyIds) {
       // Set thingys

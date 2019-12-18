@@ -30,6 +30,7 @@
 <script>
     import axios from "axios"
     import {mapState} from 'vuex'
+    import format from 'date-fns/format';
 
     export default {
         name: "ChartComponent",
@@ -81,25 +82,25 @@
                             threshold: null
                         }
                     },
-                    series: [{
-                        data: [],
-                        color: this.color,
-                        type: 'area',
-                        name: this.title
-                    },
-                        {
-                            data: [],
-                            color: this.color,
-                            type: 'area',
-                            name: this.title
-                        },
-                        {
-                            data: [],
-                            color: this.color,
-                            type: 'area',
-                            name: this.title
-                        }
-                    ]
+                  series: [{
+                    data: [],
+                    color: this.color,
+                    type: 'area',
+                    name: this.title
+                  },
+                           {
+                             data: [],
+                             color: this.color,
+                             type: 'area',
+                             name: this.title
+                           },
+                           {
+                             data: [],
+                             color: this.color,
+                             type: 'area',
+                             name: this.title
+                           }
+                  ]
                 }
             }
         },
@@ -134,8 +135,15 @@
         created() {
             this.fetchData();
         },
+      watch: {
+        selectedDevices (devices) {
+          this.fetchData()
+        }
+      },
         computed: mapState({
-            selectedDevices: state => state.selectedDevices,
+          selectedDevices: state => state.selectedDevices,
+          startDate: state => state.startDate,
+          endDate: state => state.endDate,
         }),
 
         methods: {
@@ -158,10 +166,14 @@
                      *   name: this.title
                      * } */
 
-                    await this.$api.property.get(this.selectedDevices[thingy].id, this.apiEndpoint, {
-                        headers: {
-                            Authorization: 'Bearer ' + token
-                        }
+                  await this.$api.property.get(this.selectedDevices[thingy].id, this.apiEndpoint, {
+                    params: {
+                      start_date: format(this.startDate, 'y-MM-dd'),
+                      end_date: format(this.endDate, 'y-MM-dd')
+                    },
+                    headers: {
+                      Authorization: 'Bearer ' + token
+                    }
                     }).then(response => {
 
                         /*
@@ -174,8 +186,8 @@
 
                         response.data.forEach(point => {
 
-                            // Strip seconds and miliseconds
-                            curr = point.time.slice(0, 16);
+                          // Strip seconds and miliseconds
+                          curr = point.time.slice(0, 16);
 
                             if (last !== curr) {
                                 last = curr;
