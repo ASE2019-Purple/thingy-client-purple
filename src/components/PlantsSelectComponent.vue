@@ -38,8 +38,31 @@ export default {
         selected:  this.$store.getters.selectedPlants.map(plant => plant.id),
       }
     },
+  methods: {
+    async fetchItems () {
+
+      this.$api.plants.list({}).then(
+        response => {
+          if (response.status === 200) {
+            this.$store.commit('setPlants', response.data);
+            this.plants = this.$store.getters.plantsWithThings;
+            //    this.$store.commit('selectPlants', this.plants);
+          } else {
+            //console.log("Failed to retrieve Plants");
+            this.$store.commit('setPlants', [])
+          }
+        }
+      ).catch(error => {
+        //console.log(error);
+
+      })
+    },
+  },
   watch: {
     selected (selected) {this.$store.commit('selectPlants', selected)}
+  },
+  mounted () {
+    this.fetchItems()
   },
   computed: mapState({
 

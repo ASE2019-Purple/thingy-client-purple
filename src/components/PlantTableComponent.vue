@@ -195,13 +195,11 @@ export default {
       thing: {}
     },
   }),
-
   watch: {
     dialog (val) {
       val || this.close()
     },
   },
-  
   computed: mapState({
     thingyItems: state => state.devices.map(device =>( {text: device.location, value: device.id})),
 
@@ -210,7 +208,7 @@ export default {
     },
   }),
   
-  created () {
+  mounted () {
     this.fetchItems()
   },
   methods: {
