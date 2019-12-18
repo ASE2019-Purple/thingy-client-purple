@@ -53,33 +53,62 @@ export default {
     PlantsSelectsComponent: PlantsSelectsComponent
   },
   methods: {
-   
+
+    /**
+     *Get for each selected plant the watering prediction
+     * and add them as events to the calendar.
+    */
+    fetchEvents() {
+      this.events = []
+
+      
+      for (let plant of this.$store.getters.selectedPlants) {
+        this.$api.plants.prediction(plant.id).then(
+          response => {
+            
+            if (response.status === 200){
+              for (let item of response.data){
+                if (item.watering){
+                  this.events.push({
+                    
+                    start: item.date,
+                    end: item.date,
+                    title: `Water ${plant.name}`,
+                    content: '<v-icon>mdi-water-pump</v-icon>',
+                    class: 'watering'
+                    
+                  })
+                }
+              }
+            }
+
+          }
+        ).catch(error => {
+          //console.log(error)
+        })
+      }
+    }
   },
   data () {
     return {
       info: null,
       url: "",
-    
+      events: []
       
     }
   },
   mounted () {
-
+    this.fetchEvents()
+  },
+  watch: {
+    selectedPlants (plants) {
+      this.fetchEvents()
+    }
   },
   computed: mapState({
     startDate: state => state.startDate,
     endDate: state => state.endDate,
-    events (state) {
-      return state.selectedPlants.map(plant => ({
-        
-      start: '2019-12-10',
-      end: '2019-12-10',
-      title: `Water ${plant.name}`,
-      content: '<v-icon>mdi-water-pump</v-icon>',
-      class: 'watering'
-    
-      }))
-    }
+    selectedPlants: state => state.selectedPlants
   })
 };
 </script>

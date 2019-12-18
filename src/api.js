@@ -45,6 +45,8 @@ const plants = {
   delete: (plant_id, params) => axios.delete(`${API}/plant/${plant_id}`, params),
   get: (plant_id, params) => axios.get(`${API}/plant/${plant_id}`, params),
   put: (plant_id, params) => axios.put(`${API}/plant/${plant_id}`, params),
+  prediction: (plant_id, params) => axios.get(`${API}/plant/${plant_id}/prediction`, params),
+
 }
 
 export default {
