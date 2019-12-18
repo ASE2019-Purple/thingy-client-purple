@@ -1,30 +1,9 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-col
-        cols="12"
-        sm="11"
-      >
-        <highcharts
-          class="chart"
-          :options="chartOptions"
-          :update-args="updateArgs"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="1"
-      >
-        <v-btn
-          icon
-          @click="fetchData"
-        >
-          <v-icon>mdi-refresh</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+  <highcharts
+    class="chart"
+    :options="chartOptions"
+    :update-args="updateArgs"
+  />
 </template>
 
 <script>
@@ -36,7 +15,6 @@
         name: "ChartComponent",
         data() {
             return {
-                chartTypes: ["Spline", "AreaSpline", "Line", "Scatter", "Column", "Area"],
                 points: [],
                 chartType: 'Spline',
                 seriesColor: this.color,
@@ -87,30 +65,12 @@
                     color: this.color,
                     type: 'area',
                     name: this.title
-                  },
-                           {
-                             data: [],
-                             color: this.color,
-                             type: 'area',
-                             name: this.title
-                           },
-                           {
-                             data: [],
-                             color: this.color,
-                             type: 'area',
-                             name: this.title
-                           }
+                  }
                   ]
                 }
             }
         },
         watch: {
-            title(newValue) {
-                this.chartOptions.title.text = newValue
-            },
-            chartType(newValue) {
-                this.chartOptions.chart.type = newValue.toLowerCase()
-            },
             seriesColor(newValue) {
                 this.chartOptions.series[0].color = newValue.toLowerCase()
             },
@@ -136,12 +96,15 @@
             this.fetchData();
         },
       watch: {
-        selectedDevices (devices) {
+        selectedDevice (device) {
+          this.fetchData()
+        },
+        startDate (device) {
           this.fetchData()
         }
       },
         computed: mapState({
-          selectedDevices: state => state.selectedDevices,
+          selectedDevice: state => state.selectedDevice,
           startDate: state => state.startDate,
           endDate: state => state.endDate,
         }),
@@ -152,21 +115,9 @@
 
                 const token = await this.$auth.getTokenSilently();
 
-                //console.log("Retrieve data for device " + this.selectedDevices[0])
+                if (this.selectedDevice) {
 
-                for (let thingy in this.selectedDevices) {
-                //    console.log(thingy);
-
-                    /* Replacing/creating the full chart series does not update the graph
-                     *
-                     * this.chartOptions.series[thingy] = {
-                     *   data: [],
-                     *   color: this.color,
-                     *   type: 'area',
-                     *   name: this.title
-                     * } */
-
-                  await this.$api.property.get(this.selectedDevices[thingy].id, this.apiEndpoint, {
+                  await this.$api.property.get(this.selectedDevice.id, this.apiEndpoint, {
                     params: {
                       start_date: format(this.startDate, 'y-MM-dd'),
                       end_date: format(this.endDate, 'y-MM-dd')
@@ -200,10 +151,8 @@
                         this.chartOptions.series[0].data = data
 
                     }).catch(error => {
-
                         //console.log("Failed to get data - using sample data");
                         //console.log(error);
-
                     });
 
                 }

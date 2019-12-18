@@ -21,11 +21,6 @@
 
       <div class="flex-grow-1" />
 
-      <DateRangeComponent />
-
-      <ThingyComponent />
-
-      
 
       <LoginComponent />
     </v-app-bar>
@@ -44,15 +39,11 @@
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import LoginComponent from "@/components/LoginComponent.vue";
-import DateRangeComponent from "@/components/DateRangeComponent.vue";
-import ThingyComponent from "@/components/ThingyComponent.vue";
 
 export default {
   components: {
     NavBarComponent: NavBarComponent,
     LoginComponent: LoginComponent,
-    DateRangeComponent : DateRangeComponent,
-    ThingyComponent: ThingyComponent,
   },
   data: () => ({
     drawer: null,

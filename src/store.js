@@ -10,17 +10,16 @@ export default new Vuex.Store({
     startDate: new Date(),
     endDate: new Date(),
     devices: [],
-    selectedDevices: [],
+    selectedDevice: [],
     plants: [],
     selectedPlants: []
   },
   getters: {
     dateRangeText: state => {
-    
+      // Daterange formatted for the selector
         return "" + format(state.startDate, 'd. MMM yy') + " ~ " + format(state.endDate, 'd. MMM yyy');
     },
     dateRangeISO: state => {
-      // TODO maybe use moment 
       return [state.startDate.toISOString().substr(0, 10),
              state.endDate.toISOString().substr(0, 10)];
     },
@@ -40,10 +39,10 @@ export default new Vuex.Store({
       return state.devices.map(thingy => thingy.location);
     },
     selectedThingys: state => {
-      return state.selectedDevices.map(thingy => thingy.location);
+      return state.selectedDevice.location;
     },    
-    selectedDevices: state => {
-      return state.selectedDevices;
+    selectedDevice: state => {
+      return state.selectedDevice;
     },
     selectedPlants: state => {
       return state.selectedPlants;
@@ -61,13 +60,12 @@ export default new Vuex.Store({
         state.endDate = d1 > d2 ? d1 : d2;
       }
     },
-    selectDevices(state, thingyIds) {
-      // Set thingys
-      state.selectedDevices = state.devices.filter(device => thingyIds.includes(device.id));
+    selectDevice(state, thingyId) {
+      state.selectedDevice = state.devices.filter(device => thingyId === device.id)[0];
     },
     setThingys (state, devices) {
       state.devices = devices;
-      state.selectedDevices = state.devices;
+      state.selectedDevice = state.devices[0];
     },
     setPlants (state, plants) {
       state.plants = plants;
