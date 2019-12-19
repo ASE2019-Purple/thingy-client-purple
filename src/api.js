@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const API_URL = process.env.VUE_APP_THINGY_API;
 
-const API = process.env.NODE_ENV === 'production' ? "http://35.233.66.177:8081" : "http://localhost:8081";;
+// const API = process.env.NODE_ENV === 'production' ? "http://35.233.66.177:8081" : "http://localhost:8081";
+const API = "http://35.233.66.177:8081"
 
 const property = {
    list: (thingyId, params) => axios.get(`${API}/thing/${thingyId}/properties`, params),
