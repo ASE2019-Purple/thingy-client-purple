@@ -45,8 +45,7 @@ export default {
         response => {
           if (response.status === 200) {
             this.$store.commit('setPlants', response.data);
-            this.plants = this.$store.getters.plantsWithThings;
-            //    this.$store.commit('selectPlants', this.plants);
+            
           } else {
             //console.log("Failed to retrieve Plants");
             this.$store.commit('setPlants', [])

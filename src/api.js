@@ -5,26 +5,6 @@ const API_URL = process.env.VUE_APP_THINGY_API;
 
 const API = process.env.NODE_ENV === 'production' ? "http://35.233.66.177:8081" : "http://localhost:8081";;
 
-// TODO implement a vue plugin that injects the auth header into the requests
-
-// export const ThingyAPI = new Vue ({
-  
-//   data () {
-//     properties : ["temperature", "airquality", "pressure", "humidity"]
-//   },
-//   methods : {
-//     async get () {
-//       const token = await this.$auth.getTokenSilently();
-//       return axios.get(`${API}/`, {
-//         params,
-//         headers: {
-//           Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-//         }
-//       });
-//     }
-//   }
-// })
-
 const property = {
    list: (thingyId, params) => axios.get(`${API}/thing/${thingyId}/properties`, params),
    get: (thingyId, property, params) => axios.get(`${API}/thing/${thingyId}/property/${property}`, params)
@@ -35,7 +15,6 @@ const thingys = {
   get: (thingy_id, params) => axios.get(`${API}/thing/${thingy_id}`, params),
 
   post: (params) => axios.post(`${API}/things`, params),
-  patch: (thingy_id, params) => axios.patch(`${API}/thing/${thingy_id}`, params),
   delete: (thingy_id, params) => axios.delete(`${API}/thing/${thingy_id}`, params),
 }
 

@@ -83,13 +83,15 @@
         </v-toolbar>
       </template>
       <template v-slot:item.action="{ item }">
+        <!-- Unavailable in api
         <v-icon
           small
           class="mr-2"
           @click="editItem(item)"
-        >
+        > 
           mdi-settings
         </v-icon>
+        -->
         <v-icon
           small
           @click="deleteItem(item)"
@@ -100,7 +102,7 @@
       <template v-slot:no-data>
         <v-btn
           color="primary"
-          @click="initialize"
+          @click="fetchThingys"
         >
           Reset
         </v-btn>
@@ -130,7 +132,6 @@ export default {
       { text: 'MAC Address', value: 'mac_address' },
       { text: 'Actions', value: 'action', sortable: false },
     ],
-    thingys: [],
     editedIndex: -1,
     editedItem: {
       location: '',
@@ -148,24 +149,41 @@ export default {
       val || this.close()
     },
   },
-  
   computed: mapState({
-    items: state => state.devices,
+
+    thingys: state => state.devices,
 
     formTitle (state) {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   }),
   
-  created () {
-    this.initialize()
+  mounted () {
+    this.fetchThingys()
   },
   methods: {
 
-    initialize () {
-      this.thingys = this.$store.getters.devices
-    },
+    async fetchThingys () {
+      const token = await this.$auth.getTokenSilently();
 
+      this.$api.thingys.list({
+        headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }
+      }).then(
+        response => {
+          if (response.status === 200){
+            this.$store.commit('setThingys', response.data);
+          } else {
+            //console.log("Failed to retrieve thingys")
+            this.$store.commit('setThingys',[])
+          }
+
+      }).catch(error => {
+        //console.log(error);
+      })
+      
+    },
     editItem (item) {
       this.editedIndex = this.thingys.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -174,7 +192,17 @@ export default {
 
     deleteItem (item) {
       const index = this.thingys.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.thingys.splice(index, 1)
+      const thingy = this.thingys[index]
+      
+      if (confirm('Are you sure you want to delete this item?')) {
+        this.$api.thingys.delete(thingy.id).then(response => {
+          // Refresh items
+          this.fetchThingys()
+        }).catch(error => {
+          //console.log(error);
+
+        })
+      } 
     },
 
     close () {
@@ -184,23 +212,32 @@ export default {
         this.editedIndex = -1
       }, 300)
     },
+    async  save () {
+      const token = await this.$auth.getTokenSilently();
 
-    save () {
       if (this.editedIndex > -1) {
-        
-        this.$api.thingys.patch(this.editedItem.id, this.editedItem).then(
-          response => {
-            Object.assign(this.thingys[this.editedIndex], this.editedItem)
-        }).catch(error => {
-        //console.log(error)                      
-        })
+        /* API not implemented 
+         * this.$api.thingys.put(this.editedItem.id, this.editedItem, {
+         *   headers: {
+         *     Authorization: 'Bearer ' + token, 
+         *   }
+         * }).then(
+         *   response => {
+         *     this.fetchThingys()
+         *   }).catch(error => {
+         *     //console.log(error)                      
+         *   }) */
         
       } else {
-        this.$api.thingys.post(this.editedItem).then(
+        this.$api.thingys.post(this.editedItem, {
+          headers: {
+            Authorization: 'Bearer ' + token, // send the access token through the 'Authorization' header
+          }
+        }).then(
           response => {
-            this.thingys.push(this.editedItem)
+            this.fetchThingys()
         }).catch(error => {
-        //console.log(error)                      
+          //console.log(error)                      
         })
       }
       this.close()
