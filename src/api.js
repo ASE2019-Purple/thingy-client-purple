@@ -31,7 +31,7 @@ const property = {
 }
 
 const thingys = {
-  list: params => axios.get(`${API}/things`, { params }),
+  list: params => axios.get(`${API}/things`,  params ),
   get: (thingy_id, params) => axios.get(`${API}/thing/${thingy_id}`, params),
 
   post: (params) => axios.post(`${API}/things`, params),

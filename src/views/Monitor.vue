@@ -1,6 +1,15 @@
 <template>
   <div id="app">
     <v-container fluid>
+      <v-row>
+        <v-toolbar>
+          <v-spacer />
+
+          <DateRangeComponent />
+
+          <ThingyComponent />
+        </v-toolbar>
+      </v-row>
       <v-row
         justify="center"
       >
@@ -25,6 +34,8 @@
 
 <script>
 import ChartComponent from '../components/ChartComponent.vue'
+import ThingyComponent from "@/components/ThingyComponent.vue";
+import DateRangeComponent from "@/components/DateRangeComponent.vue";
 
 export default {
   name: 'Monitor',
@@ -57,7 +68,9 @@ export default {
     }
   },
   components: {
-    ChartComponent: ChartComponent
+    ChartComponent: ChartComponent,
+    ThingyComponent: ThingyComponent,
+    DateRangeComponent : DateRangeComponent,
   },
   methods: {
     activate (elem) {

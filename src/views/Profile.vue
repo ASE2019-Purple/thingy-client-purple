@@ -2,13 +2,14 @@
   <v-container fluid>
     <v-row justify="space-around">
       <v-col
-        cols="6"
+        lg="5"
+        cols="7"
       >
         <ThingyTableComponent />
       </v-col>
 
       <v-col
-        cols="8"
+        cols="7"
       >
         <v-list-item>
           <PlantTableComponent />

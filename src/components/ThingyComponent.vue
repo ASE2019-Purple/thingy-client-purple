@@ -2,11 +2,9 @@
   <div>
     <v-select
       solo
-      v-model="selectedThingys"
+      v-model="selectedThingy"
       :items="thingys"
       label="Select Devices"
-      multiple
-      chips
       class="pt-5"
     />
   </div>
@@ -19,7 +17,7 @@ export default {
   name: "ThingyComponent",
   props: {},
   data: () => ({
-    selectedThingys: [],
+    selectedThingy: 0,
   }),
   computed: mapState({
     
@@ -29,27 +27,25 @@ export default {
   }),
   methods: {
     async fetchItem () {
-      // return the Promise from the action
-      //const token = await this.$auth.getTokenSilently();
+      const token = await this.$auth.getTokenSilently();
 
-      //headers: {
-      //    Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
-      //}
       this.$api.thingys.list({
-        
+        headers: {
+          Authorization: 'Bearer ' + token // send the access token through the 'Authorization' header
+        }
       }).then(
         response => {
           if (response.status === 200){
             this.$store.commit('setThingys', response.data);
-            this.selectedThingys = [this.$store.getters.devices[0].id]
+            this.selectedThingy = this.$store.getters.devices[0].id
           } else {
             //console.log("Failed to retrieve thingys")
             this.$store.commit('setThingys',[])
-            }
+          }
 
-        }).catch(error => {
-          //console.log(error);
-        })
+      }).catch(error => {
+        //console.log(error);
+      })
       
     }
   },
@@ -57,8 +53,8 @@ export default {
     this.fetchItem()
   },
   watch: {
-    selectedThingys (thingyIds) {
-      this.$store.commit('selectDevices', thingyIds)
+    selectedThingy (thingyId) {
+      this.$store.commit('selectDevice', thingyId)
 
     }
   }
