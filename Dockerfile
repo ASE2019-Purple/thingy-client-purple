@@ -1,16 +1,11 @@
-FROM node:lts-alpine as build-stage
+FROM node:latest as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN yarn install
+RUN npm install
+COPY ./ .
+RUN npm run build
 
-# Dev environment doesn't run this stage or beyond
-FROM build-stage as build
-COPY . .
-RUN yarn build
-
-FROM nginx:alpine as production-stage
+FROM nginx as production-stage
 RUN mkdir /app
-COPY --from=build /app/dist /app
+COPY --from=build-stage /app/dist /app
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
