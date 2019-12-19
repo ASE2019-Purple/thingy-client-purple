@@ -45,7 +45,8 @@ export default {
         response => {
           if (response.status === 200) {
             this.$store.commit('setPlants', response.data);
-            
+            this.selected = this.$store.getters.selectedPlants.map(plant => plant.id)
+
           } else {
             //console.log("Failed to retrieve Plants");
             this.$store.commit('setPlants', [])
@@ -62,6 +63,7 @@ export default {
   },
   mounted () {
     this.fetchItems()
+
   },
   computed: mapState({
 
